@@ -1,3 +1,6 @@
+#ifndef PROXYSTRUCT_H
+#define PROXYSTRUCT_H
+
 struct {
     char* meta;
     char* wk;
@@ -21,3 +24,5 @@ struct {
     int userID;
     char* UUIDToken;
 } OnSendToServer;
+
+#endif // PROXYSTRUCT_H
