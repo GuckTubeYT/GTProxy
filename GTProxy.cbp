@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GTProxy" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/GTProxy" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/GTProxy" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="enet/callbacks.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/compress.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/host.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/include/callbacks.h" />
+		<Unit filename="enet/include/enet.h" />
+		<Unit filename="enet/include/list.h" />
+		<Unit filename="enet/include/protocol.h" />
+		<Unit filename="enet/include/time.h" />
+		<Unit filename="enet/include/types.h" />
+		<Unit filename="enet/include/unix.h" />
+		<Unit filename="enet/include/utility.h" />
+		<Unit filename="enet/include/win32.h" />
+		<Unit filename="enet/list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/packet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/peer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/protocol.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/unix.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enet/win32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="httpService.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="httpService.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="packet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="packet.h" />
+		<Unit filename="proxyStruct.h" />
+		<Unit filename="tlse/tlse.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tlse/tlse.h" />
+		<Unit filename="utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="utils.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
