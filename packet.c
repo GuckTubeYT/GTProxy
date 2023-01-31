@@ -22,10 +22,7 @@ int GetMessageTypeFromPacket(ENetPacket* packet) {
 void SendPacketPacket(ENetPacket* oldPacket, ENetPeer* peer) {
     ENetPacket* packet = enet_packet_create(NULL, oldPacket->dataLength, oldPacket->flags);
     memcpy(packet->data, oldPacket->data, oldPacket->dataLength);
-    if (enet_peer_send(peer, 0, packet) != 0) {
-        printf("not sended!\n");
-        enet_packet_destroy(oldPacket);
-    }
+    enet_peer_send(peer, 0, packet);
 }
 
 void sendPacket(int val, char* packetText, ENetPeer* peer) {
