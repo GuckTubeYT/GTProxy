@@ -2,7 +2,7 @@
 A Growtopia Proxy to get packet from Client and Server
 # Build
 - [CodeBlocks (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#codeblocks-windows-version)
-- [Manual Build (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-windows-version)
+- [Manual Build (GCC Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-windows-version)
 ## CodeBlocks (Windows Version)
 1. Download CodeBlocks from http://www.codeblocks.org/downloads/binaries/ and download MINGW Version
 2. Download this project
