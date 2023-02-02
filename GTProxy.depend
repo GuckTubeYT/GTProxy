@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1672281552 source:c:\users\dell\desktop\gtproxy\enet\callbacks.c
+1675244335 source:c:\users\dell\desktop\gtproxy\enet\callbacks.c
 	"include/enet.h"
 
-1674282350 c:\users\dell\desktop\gtproxy\enet\include\enet.h
+1675244354 c:\users\dell\desktop\gtproxy\enet\include\enet.h
 	<stdlib.h>
 	"win32.h"
 	"unix.h"
@@ -11,11 +11,11 @@
 	"list.h"
 	"callbacks.h"
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\win32.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\win32.h
 	<stdlib.h>
 	<winsock2.h>
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\unix.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\unix.h
 	<stdlib.h>
 	<sys/time.h>
 	<sys/types.h>
@@ -24,48 +24,48 @@
 	<netinet/in.h>
 	<unistd.h>
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\types.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\types.h
 
-1672281586 c:\users\dell\desktop\gtproxy\enet\include\protocol.h
+1675244354 c:\users\dell\desktop\gtproxy\enet\include\protocol.h
 	"types.h"
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\list.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\list.h
 	<stdlib.h>
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\callbacks.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\callbacks.h
 	<stdlib.h>
 
-1672281553 source:c:\users\dell\desktop\gtproxy\enet\compress.c
+1675244344 source:c:\users\dell\desktop\gtproxy\enet\compress.c
 	<string.h>
 	"include/enet.h"
 
-1672321872 source:c:\users\dell\desktop\gtproxy\enet\host.c
+1675244344 source:c:\users\dell\desktop\gtproxy\enet\host.c
 	<string.h>
 	"include/enet.h"
 
-1672281554 source:c:\users\dell\desktop\gtproxy\enet\list.c
+1675244345 source:c:\users\dell\desktop\gtproxy\enet\list.c
 	"include/enet.h"
 
-1672281554 source:c:\users\dell\desktop\gtproxy\enet\packet.c
+1675244345 source:c:\users\dell\desktop\gtproxy\enet\packet.c
 	<string.h>
 	"include/enet.h"
 
-1672281554 source:c:\users\dell\desktop\gtproxy\enet\peer.c
+1675244346 source:c:\users\dell\desktop\gtproxy\enet\peer.c
 	<string.h>
 	"include/enet.h"
 
-1672281560 source:c:\users\dell\desktop\gtproxy\enet\protocol.c
+1675244346 source:c:\users\dell\desktop\gtproxy\enet\protocol.c
 	<stdio.h>
 	<string.h>
 	"include/utility.h"
 	"include/time.h"
 	"include/enet.h"
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\utility.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\utility.h
 
-1672281501 c:\users\dell\desktop\gtproxy\enet\include\time.h
+1675244246 c:\users\dell\desktop\gtproxy\enet\include\time.h
 
-1672321699 source:c:\users\dell\desktop\gtproxy\enet\unix.c
+1675244346 source:c:\users\dell\desktop\gtproxy\enet\unix.c
 	<sys/types.h>
 	<sys/socket.h>
 	<sys/ioctl.h>
@@ -80,11 +80,12 @@
 	<fcntl.h>
 	<poll.h>
 
-1672285824 source:c:\users\dell\desktop\gtproxy\enet\win32.c
+1675244470 source:c:\users\dell\desktop\gtproxy\enet\win32.c
 	"include/enet.h"
 	<windows.h>
 	<mmsystem.h>
-	<stdio.h>
+	<ws2ipdef.h>
+	<ws2tcpip.h>
 
 1673790299 source:c:\users\dell\desktop\gtproxy\tlse\libtomcrypt.c
 	<stdio.h>
@@ -169,10 +170,11 @@
 
 1673859448 c:\users\dell\desktop\gtproxy\tlse\tlse.h
 
-1675163169 source:c:\users\dell\desktop\gtproxy\main.c
+1675309900 source:c:\users\dell\desktop\gtproxy\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<windows.h>
 	<pthread.h>
 	<time.h>
 	<stdint.h>
@@ -181,6 +183,9 @@
 	"utils.h"
 	"packet.h"
 	"proxyStruct.h"
+	"eventClient.h"
+	"eventServer.h"
+	"mainVar.h"
 
 1674348266 c:\users\dell\desktop\gtproxy\tlse\httpservice.c
 	<stdio.h>
@@ -213,7 +218,7 @@
 	"curve25519.c"
 	<sys/socket.h>
 
-1675156098 source:c:\users\dell\desktop\gtproxy\utils.c
+1675329284 source:c:\users\dell\desktop\gtproxy\utils.c
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -221,7 +226,7 @@
 	<ctype.h>
 	"utils.h"
 
-1675156104 c:\users\dell\desktop\gtproxy\utils.h
+1675268716 c:\users\dell\desktop\gtproxy\utils.h
 
 1674785971 c:\users\dell\desktop\gtproxy\httpservice.h
 
@@ -237,12 +242,12 @@
 	"tlse/tlse.h"
 	"utils.h"
 
-1675045341 c:\users\dell\desktop\gtproxy\packet.h
+1675256014 c:\users\dell\desktop\gtproxy\packet.h
 	"enet/include/enet.h"
 
-1675153264 c:\users\dell\desktop\gtproxy\proxystruct.h
+1675218604 c:\users\dell\desktop\gtproxy\proxystruct.h
 
-1675137727 source:c:\users\dell\desktop\gtproxy\packet.c
+1675269595 source:c:\users\dell\desktop\gtproxy\packet.c
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
@@ -250,5 +255,37 @@
 	<stdarg.h>
 	"enet/include/enet.h"
 	"packet.h"
+	"proxyStruct.h"
+
+1675311184 source:c:\users\dell\desktop\gtproxy\eventclient.c
+	<stdio.h>
+	<string.h>
+	"eventClient.h"
+	"eventServer.h"
+	"enet/include/enet.h"
+	"httpService.h"
+	"utils.h"
+	"mainVar.h"
+	"packet.h"
+	"proxyStruct.h"
+
+1675269008 c:\users\dell\desktop\gtproxy\eventclient.h
+	"enet/include/enet.h"
+
+1675255510 c:\users\dell\desktop\gtproxy\eventserver.h
+	"enet/include/enet.h"
+
+1675268762 c:\users\dell\desktop\gtproxy\mainvar.h
+	"enet/include/enet.h"
+	<windows.h>
+	<pthread.h>
+
+1675312011 source:c:\users\dell\desktop\gtproxy\eventserver.c
+	<stdio.h>
+	<string.h>
+	"eventServer.h"
+	"enet/include/enet.h"
+	"packet.h"
+	"utils.h"
 	"proxyStruct.h"
 

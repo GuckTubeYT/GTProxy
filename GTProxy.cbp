@@ -67,6 +67,14 @@
 		<Unit filename="enet/win32.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="eventClient.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="eventClient.h" />
+		<Unit filename="eventServer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="eventServer.h" />
 		<Unit filename="httpService.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -74,6 +82,7 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="mainVar.h" />
 		<Unit filename="packet.c">
 			<Option compilerVar="CC" />
 		</Unit>

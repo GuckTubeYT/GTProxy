@@ -29,11 +29,15 @@ void sendPacket(int val, char* packetText, ENetPeer* peer) {
     ENetPacket* packet = enet_packet_create(NULL, strlen(packetText) + 5, ENET_PACKET_FLAG_RELIABLE);
     memcpy(packet->data, &val, 4);
     memcpy(packet->data + 4, packetText, strlen(packetText));
-    if (enet_peer_send(peer, 0, packet) != 0) enet_packet_destroy(packet);
+    if (enet_peer_send(peer, 0, packet)) enet_packet_destroy(packet);
 }
 
 unsigned char* GetExtendedDataPointerFromTankPacket(unsigned char* a1) {
 	return a1 + 56;
+}
+
+void enet_peerSend(ENetPacket* packet, ENetPeer* peer) {
+    if (enet_peer_send(peer, 0, packet)) enet_packet_destroy(packet);
 }
 
 ENetPacket* onPacketCreate(char* format, ...) {

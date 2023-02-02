@@ -116,9 +116,13 @@ enet_peer_send (ENetPeer * peer, enet_uint8 channelID, ENetPacket * packet)
      return -1;
 
    channel = & peer -> channels [channelID];
-   fragmentLength = peer -> mtu - sizeof (ENetProtocolHeader) - sizeof (ENetProtocolSendFragment);
+   if (peer -> host -> usingNewPacket)
+     fragmentLength = peer -> mtu - sizeof (ENetNewProtocolHeader) - sizeof (ENetProtocolSendFragment);
+   else
+     fragmentLength = peer -> mtu - sizeof (ENetProtocolHeader) - sizeof (ENetProtocolSendFragment);
+
    if (peer -> host -> checksum != NULL)
-     fragmentLength -= sizeof(enet_uint32);
+     fragmentLength -= sizeof (enet_uint32);
 
    if (packet -> dataLength > fragmentLength)
    {
@@ -278,7 +282,7 @@ enet_peer_reset_outgoing_commands (ENetList * queue)
 static void
 enet_peer_remove_incoming_commands (ENetList * queue, ENetListIterator startCommand, ENetListIterator endCommand, ENetIncomingCommand * excludeCommand)
 {
-    ENetListIterator currentCommand;    
+    ENetListIterator currentCommand;
     
     for (currentCommand = startCommand; currentCommand != endCommand; )
     {
@@ -664,7 +668,7 @@ enet_peer_setup_outgoing_command (ENetPeer * peer, ENetOutgoingCommand * outgoin
            outgoingCommand -> unreliableSequenceNumber = channel -> outgoingUnreliableSequenceNumber;
         }
     }
-
+   
     outgoingCommand -> sendAttempts = 0;
     outgoingCommand -> sentTime = 0;
     outgoingCommand -> roundTripTimeout = 0;
@@ -826,7 +830,7 @@ enet_peer_dispatch_incoming_reliable_commands (ENetPeer * peer, ENetChannel * ch
     }
 
     if (! enet_list_empty (& channel -> incomingUnreliableCommands))
-       enet_peer_dispatch_incoming_unreliable_commands (peer, channel, queuedCommand);
+      enet_peer_dispatch_incoming_unreliable_commands (peer, channel, queuedCommand);
 }
 
 ENetIncomingCommand *

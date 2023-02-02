@@ -1,4 +1,4 @@
-/**
+/** 
  @file host.c
  @brief ENet host management functions
 */
@@ -10,7 +10,7 @@
     @{
 */
 
-/** Creates a host for communicating to peers.
+/** Creates a host for communicating to peers.  
 
     @param address   the address at which other peers may connect to this host.  If NULL, then no peers may connect to the host.
     @param peerCount the maximum number of peers that should be allocated for the host.
@@ -49,7 +49,6 @@ enet_host_create (const ENetAddress * address, size_t peerCount, size_t channelL
     memset (host -> peers, 0, peerCount * sizeof (ENetPeer));
 
     host -> socket = enet_socket_create (ENET_SOCKET_TYPE_DATAGRAM);
-    host -> socks5Socket = ENET_SOCKET_NULL;
     if (host -> socket == ENET_SOCKET_NULL || (address != NULL && enet_socket_bind (host -> socket, address) < 0))
     {
        if (host -> socket != ENET_SOCKET_NULL)
@@ -66,7 +65,7 @@ enet_host_create (const ENetAddress * address, size_t peerCount, size_t channelL
     enet_socket_set_option (host -> socket, ENET_SOCKOPT_RCVBUF, ENET_HOST_RECEIVE_BUFFER_SIZE);
     enet_socket_set_option (host -> socket, ENET_SOCKOPT_SNDBUF, ENET_HOST_SEND_BUFFER_SIZE);
 
-    if (address != NULL && enet_socket_get_address (host -> socket, & host -> address) < 0)
+    if (address != NULL && enet_socket_get_address (host -> socket, & host -> address) < 0)   
       host -> address = * address;
 
     if (! channelLimit || channelLimit > ENET_PROTOCOL_MAXIMUM_CHANNEL_COUNT)
@@ -75,8 +74,6 @@ enet_host_create (const ENetAddress * address, size_t peerCount, size_t channelL
     if (channelLimit < ENET_PROTOCOL_MINIMUM_CHANNEL_COUNT)
       channelLimit = ENET_PROTOCOL_MINIMUM_CHANNEL_COUNT;
 
-    host -> usingNewPacket = 0;
-    host -> enableLogging = 0;
     host -> randomSeed = (enet_uint32) (size_t) host;
     host -> randomSeed += enet_host_random_seed ();
     host -> randomSeed = (host -> randomSeed << 16) | (host -> randomSeed >> 16);
@@ -94,7 +91,7 @@ enet_host_create (const ENetAddress * address, size_t peerCount, size_t channelL
     host -> receivedAddress.port = 0;
     host -> receivedData = NULL;
     host -> receivedDataLength = 0;
-
+     
     host -> totalSentData = 0;
     host -> totalSentPackets = 0;
     host -> totalReceivedData = 0;
@@ -134,135 +131,6 @@ enet_host_create (const ENetAddress * address, size_t peerCount, size_t channelL
     }
 
     return host;
-}
-
-int
-enet_host_use_socks5 (ENetHost * host, ENetSocks5Config * socks5Config)
-{
-    ENetAddress* address = & socks5Config -> address;
-    host -> socks5Socket = enet_socket_create (ENET_SOCKET_TYPE_STREAM);
-    host -> socks5Config = * socks5Config;
-
-    if (enet_socket_connect (host -> socks5Socket, address) != 0)
-      return -1;
-
-    ENetBuffer buffer;
-    ENetSocks5MethodRequest method;
-    method.version = ENET_SOCKS5_VERSION;
-    method.methodCount = 1;
-
-    if (strlen (socks5Config -> username) == 0 && strlen (socks5Config -> password) == 0)
-      method.methods [0] = ENET_SOCKS5_METHOD_NOAUTH;
-    else
-      method.methods [0] = ENET_SOCKS5_METHOD_USERPASS;
-
-    buffer.data = & method;
-    buffer.dataLength = sizeof (enet_uint8) + sizeof (enet_uint8) + sizeof (enet_uint8);
-
-    int sentLength = enet_socket_send (host -> socks5Socket, address, & buffer, 1);
-    if (sentLength <= 0)
-      return -1;
-
-    ENetSocks5MethodResponse methodResponse;
-    memset (&methodResponse, 0, sizeof (ENetSocks5MethodResponse));
-
-    buffer.data = & methodResponse;
-    buffer.dataLength = sizeof (ENetSocks5MethodResponse);
-
-    int receivedLength = enet_socket_receive (host -> socks5Socket, address, & buffer, 1);
-    if (receivedLength <= 0)
-      return -1;
-
-    if (methodResponse.version != ENET_SOCKS5_VERSION)
-      return -1;
-
-    switch (methodResponse.method)
-    {
-        case ENET_SOCKS5_METHOD_NOAUTH:
-          break;
-
-        case ENET_SOCKS5_METHOD_USERPASS:
-        {
-            enet_uint8 usernameLength = strlen (socks5Config -> username);
-            enet_uint8 passwordLength = strlen (socks5Config -> password);
-
-            size_t offset = 0;
-            size_t authRequestSize = sizeof (enet_uint8) + sizeof (enet_uint8) + usernameLength + sizeof (enet_uint8) + passwordLength;
-            enet_uint8 authRequest [authRequestSize];
-
-            authRequest [offset ++] = ENET_SOCKS5_AUTH_VERSION;
-
-            authRequest [offset ++] = usernameLength;
-            memcpy (authRequest + offset, socks5Config -> username, usernameLength);
-            offset += usernameLength;
-
-            authRequest [offset ++] = passwordLength;
-            memcpy(authRequest + offset, socks5Config -> password, passwordLength);
-            offset += passwordLength;
-
-            buffer.data = authRequest;
-            buffer.dataLength = authRequestSize;
-
-            sentLength = enet_socket_send (host -> socks5Socket, address, & buffer, 1);
-            if (sentLength <= 0)
-              return -1;
-
-            ENetSocks5AuthResponse authResponse;
-            buffer.data = & authResponse;
-            buffer.dataLength = sizeof (ENetSocks5AuthResponse);
-
-            receivedLength = enet_socket_receive (host -> socks5Socket, address, & buffer, 1);
-            if (receivedLength <= 0)
-              return -1;
-
-            if (authResponse.version != ENET_SOCKS5_AUTH_VERSION)
-              return -1;
-
-            if (authResponse.status != ENET_SOCKS5_AUTH_SUCCESS)
-              return -1;
-
-            break;
-        }
-
-        default:
-          return -1;
-    }
-
-    ENetSocks5Connection connection;
-    connection.version = ENET_SOCKS5_VERSION;
-    connection.command = ENET_SOCKS5_COMMAND_UDP_ASSOCIATE;
-    connection.reserved = 0;
-    connection.addressType = ENET_SOCKS5_ADDRESS_IPV4;
-    connection.addressHost = 0;
-    connection.addressPort = 0;
-
-    buffer.data = & connection;
-    buffer.dataLength = sizeof (ENetSocks5Connection);
-
-    sentLength = enet_socket_send (host -> socks5Socket, address, & buffer, 1);
-    if (sentLength <= 0)
-      return -1;
-
-    receivedLength = enet_socket_receive (host -> socks5Socket, address, & buffer, 1);
-    if (receivedLength <= 0)
-      return -1;
-
-    if (connection.version != ENET_SOCKS5_VERSION)
-      return -1;
-
-    if (connection.status != ENET_SOCKS5_REPLY_SUCCEED)
-      return -1;
-
-    if (connection.addressType != ENET_SOCKS5_ADDRESS_IPV4)
-      return -1;
-
-    return 0;
-}
-
-void
-enet_host_set_using_new_packet (ENetHost * host, enet_uint32 usingNewPacket)
-{
-    host -> usingNewPacket = usingNewPacket;
 }
 
 /** Destroys the host and all resources associated with it.
@@ -306,13 +174,13 @@ enet_host_random (ENetHost * host)
     @param host host seeking the connection
     @param address destination for the connection
     @param channelCount number of channels to allocate
-    @param data user data supplied to the receiving host
+    @param data user data supplied to the receiving host 
     @returns a peer representing the foreign host on success, NULL on failure
     @remarks The peer returned will have not completed the connection until enet_host_service()
     notifies of an ENET_EVENT_TYPE_CONNECT event for the peer.
 */
 ENetPeer *
-enet_host_connect (ENetHost * host, ENetAddress * address, size_t channelCount, enet_uint32 data)
+enet_host_connect (ENetHost * host, const ENetAddress * address, size_t channelCount, enet_uint32 data)
 {
     ENetPeer * currentPeer;
     ENetChannel * channel;
@@ -340,21 +208,14 @@ enet_host_connect (ENetHost * host, ENetAddress * address, size_t channelCount, 
       return NULL;
     currentPeer -> channelCount = channelCount;
     currentPeer -> state = ENET_PEER_STATE_CONNECTING;
+    currentPeer -> address = * address;
     currentPeer -> connectID = enet_host_random (host);
-
-    if (host -> socks5Socket != ENET_SOCKET_NULL)
-    {
-        currentPeer -> address = host -> socks5Config.address;
-        host -> socks5TargetAddress = * address;
-    }
-    else
-      currentPeer -> address = * address;
 
     if (host -> outgoingBandwidth == 0)
       currentPeer -> windowSize = ENET_PROTOCOL_MAXIMUM_WINDOW_SIZE;
     else
       currentPeer -> windowSize = (host -> outgoingBandwidth /
-                                    ENET_PEER_WINDOW_SIZE_SCALE) *
+                                    ENET_PEER_WINDOW_SIZE_SCALE) * 
                                       ENET_PROTOCOL_MINIMUM_WINDOW_SIZE;
 
     if (currentPeer -> windowSize < ENET_PROTOCOL_MINIMUM_WINDOW_SIZE)
@@ -362,7 +223,7 @@ enet_host_connect (ENetHost * host, ENetAddress * address, size_t channelCount, 
     else
     if (currentPeer -> windowSize > ENET_PROTOCOL_MAXIMUM_WINDOW_SIZE)
       currentPeer -> windowSize = ENET_PROTOCOL_MAXIMUM_WINDOW_SIZE;
-
+         
     for (channel = currentPeer -> channels;
          channel < & currentPeer -> channels [channelCount];
          ++ channel)
@@ -378,7 +239,7 @@ enet_host_connect (ENetHost * host, ENetAddress * address, size_t channelCount, 
         channel -> usedReliableWindows = 0;
         memset (channel -> reliableWindows, 0, sizeof (channel -> reliableWindows));
     }
-
+        
     command.header.command = ENET_PROTOCOL_COMMAND_CONNECT | ENET_PROTOCOL_COMMAND_FLAG_ACKNOWLEDGE;
     command.header.channelID = 0xFF;
     command.connect.outgoingPeerID = ENET_HOST_TO_NET_16 (currentPeer -> incomingPeerID);
@@ -394,7 +255,7 @@ enet_host_connect (ENetHost * host, ENetAddress * address, size_t channelCount, 
     command.connect.packetThrottleDeceleration = ENET_HOST_TO_NET_32 (currentPeer -> packetThrottleDeceleration);
     command.connect.connectID = currentPeer -> connectID;
     command.connect.data = ENET_HOST_TO_NET_32 (data);
-
+ 
     enet_peer_queue_outgoing_command (currentPeer, & command, NULL, 0, 0);
 
     return currentPeer;
@@ -513,7 +374,7 @@ enet_host_bandwidth_throttle (ENetHost * host)
     while (peersRemaining > 0 && needsAdjustment != 0)
     {
         needsAdjustment = 0;
-
+        
         if (dataTotal <= bandwidth)
           throttle = ENET_PEER_PACKET_THROTTLE_SCALE;
         else
@@ -524,7 +385,7 @@ enet_host_bandwidth_throttle (ENetHost * host)
              ++ peer)
         {
             enet_uint32 peerBandwidth;
-
+            
             if ((peer -> state != ENET_PEER_STATE_CONNECTED && peer -> state != ENET_PEER_STATE_DISCONNECT_LATER) ||
                 peer -> incomingBandwidth == 0 ||
                 peer -> outgoingBandwidthThrottleEpoch == timeCurrent)
@@ -534,12 +395,12 @@ enet_host_bandwidth_throttle (ENetHost * host)
             if ((throttle * peer -> outgoingDataTotal) / ENET_PEER_PACKET_THROTTLE_SCALE <= peerBandwidth)
               continue;
 
-            peer -> packetThrottleLimit = (peerBandwidth *
+            peer -> packetThrottleLimit = (peerBandwidth * 
                                             ENET_PEER_PACKET_THROTTLE_SCALE) / peer -> outgoingDataTotal;
-
+            
             if (peer -> packetThrottleLimit == 0)
               peer -> packetThrottleLimit = 1;
-
+            
             if (peer -> packetThrottle > peer -> packetThrottleLimit)
               peer -> packetThrottle = peer -> packetThrottleLimit;
 
@@ -609,7 +470,7 @@ enet_host_bandwidth_throttle (ENetHost * host)
                  continue;
 
                peer -> incomingBandwidthThrottleEpoch = timeCurrent;
-
+ 
                needsAdjustment = 1;
                -- peersRemaining;
                bandwidth -= peer -> outgoingBandwidth;
@@ -633,8 +494,8 @@ enet_host_bandwidth_throttle (ENetHost * host)
              command.bandwidthLimit.incomingBandwidth = ENET_HOST_TO_NET_32 (bandwidthLimit);
 
            enet_peer_queue_outgoing_command (peer, & command, NULL, 0, 0);
-       }
+       } 
     }
 }
-
+    
 /** @} */

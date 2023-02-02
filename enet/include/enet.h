@@ -1,8 +1,7 @@
-/**
+/** 
  @file  enet.h
  @brief ENet public header file
 */
-// clang-format off
 #ifndef __ENET_ENET_H__
 #define __ENET_ENET_H__
 
@@ -63,7 +62,8 @@ typedef enum _ENetSocketOption
    ENET_SOCKOPT_RCVTIMEO  = 6,
    ENET_SOCKOPT_SNDTIMEO  = 7,
    ENET_SOCKOPT_ERROR     = 8,
-   ENET_SOCKOPT_NODELAY   = 9
+   ENET_SOCKOPT_NODELAY   = 9,
+   ENET_SOCKOPT_TTL       = 10
 } ENetSocketOption;
 
 typedef enum _ENetSocketShutdown
@@ -78,10 +78,10 @@ typedef enum _ENetSocketShutdown
 #define ENET_PORT_ANY       0
 
 /**
- * Portable internet address structure.
+ * Portable internet address structure. 
  *
- * The host must be specified in network byte-order, and the port must be in host
- * byte-order. The constant ENET_HOST_ANY may be used to specify the default
+ * The host must be specified in network byte-order, and the port must be in host 
+ * byte-order. The constant ENET_HOST_ANY may be used to specify the default 
  * server host. The constant ENET_HOST_BROADCAST may be used to specify the
  * broadcast address (255.255.255.255).  This makes sense for enet_host_connect,
  * but not for enet_host_create.  Once a server responds to a broadcast, the
@@ -94,23 +94,12 @@ typedef struct _ENetAddress
 } ENetAddress;
 
 /**
- * Portable SOCKS5 internet address structure.
-*/
-typedef struct _ENetsocks5Config
-{
-   ENetAddress address;
-   char username[255];
-   char password[255];
-} ENetSocks5Config;
-
-
-/**
  * Packet flag bit constants.
  *
  * The host must be specified in network byte-order, and the port must be in
  * host byte-order. The constant ENET_HOST_ANY may be used to specify the
  * default server host.
-
+ 
    @sa ENetPacket
 */
 typedef enum _ENetPacketFlag
@@ -137,16 +126,16 @@ typedef void (ENET_CALLBACK * ENetPacketFreeCallback) (struct _ENetPacket *);
 /**
  * ENet packet structure.
  *
- * An ENet data packet that may be sent to or received from a peer. The shown
- * fields should only be read and never modified. The data field contains the
- * allocated data for the packet. The dataLength fields specifies the length
- * of the allocated data.  The flags field is either 0 (specifying no flags),
+ * An ENet data packet that may be sent to or received from a peer. The shown 
+ * fields should only be read and never modified. The data field contains the 
+ * allocated data for the packet. The dataLength fields specifies the length 
+ * of the allocated data.  The flags field is either 0 (specifying no flags), 
  * or a bitwise-or of any combination of the following flags:
  *
  *    ENET_PACKET_FLAG_RELIABLE - packet must be received by the target peer
  *    and resend attempts should be made until the packet is delivered
  *
- *    ENET_PACKET_FLAG_UNSEQUENCED - packet will not be sequenced with other packets
+ *    ENET_PACKET_FLAG_UNSEQUENCED - packet will not be sequenced with other packets 
  *    (not supported for reliable packets)
  *
  *    ENET_PACKET_FLAG_NO_ALLOCATE - packet will not allocate data, and user must supply it instead
@@ -190,7 +179,7 @@ typedef struct _ENetOutgoingCommand
 } ENetOutgoingCommand;
 
 typedef struct _ENetIncomingCommand
-{
+{  
    ENetListNode     incomingCommandList;
    enet_uint16      reliableSequenceNumber;
    enet_uint16      unreliableSequenceNumber;
@@ -212,7 +201,7 @@ typedef enum _ENetPeerState
    ENET_PEER_STATE_DISCONNECT_LATER            = 6,
    ENET_PEER_STATE_DISCONNECTING               = 7,
    ENET_PEER_STATE_ACKNOWLEDGING_DISCONNECT    = 8,
-   ENET_PEER_STATE_ZOMBIE                      = 9
+   ENET_PEER_STATE_ZOMBIE                      = 9 
 } ENetPeerState;
 
 #ifndef ENET_BUFFER_MAXIMUM
@@ -231,7 +220,7 @@ enum
    ENET_PEER_DEFAULT_ROUND_TRIP_TIME      = 500,
    ENET_PEER_DEFAULT_PACKET_THROTTLE      = 32,
    ENET_PEER_PACKET_THROTTLE_SCALE        = 32,
-   ENET_PEER_PACKET_THROTTLE_COUNTER      = 7,
+   ENET_PEER_PACKET_THROTTLE_COUNTER      = 7, 
    ENET_PEER_PACKET_THROTTLE_ACCELERATION = 2,
    ENET_PEER_PACKET_THROTTLE_DECELERATION = 2,
    ENET_PEER_PACKET_THROTTLE_INTERVAL     = 5000,
@@ -268,12 +257,12 @@ typedef enum _ENetPeerFlag
 } ENetPeerFlag;
 
 /**
- * An ENet peer which data packets may be sent or received from.
+ * An ENet peer which data packets may be sent or received from. 
  *
- * No fields should be modified unless otherwise specified.
+ * No fields should be modified unless otherwise specified. 
  */
 typedef struct _ENetPeer
-{
+{ 
    ENetListNode  dispatchList;
    struct _ENetHost * host;
    enet_uint16   outgoingPeerID;
@@ -326,12 +315,13 @@ typedef struct _ENetPeer
    ENetList      sentReliableCommands;
    ENetList      sentUnreliableCommands;
    ENetList      outgoingCommands;
+   ENetList      pad;
    ENetList      dispatchedCommands;
    enet_uint16   flags;
    enet_uint16   reserved;
    enet_uint16   incomingUnsequencedGroup;
    enet_uint16   outgoingUnsequencedGroup;
-   enet_uint32   unsequencedWindow [ENET_PEER_UNSEQUENCED_WINDOW_SIZE / 32];
+   enet_uint32   unsequencedWindow [ENET_PEER_UNSEQUENCED_WINDOW_SIZE / 32]; 
    enet_uint32   eventData;
    size_t        totalWaitingData;
 } ENetPeer;
@@ -355,7 +345,7 @@ typedef enet_uint32 (ENET_CALLBACK * ENetChecksumCallback) (const ENetBuffer * b
 
 /** Callback for intercepting received raw UDP packets. Should return 1 to intercept, 0 to ignore, or -1 to propagate an error. */
 typedef int (ENET_CALLBACK * ENetInterceptCallback) (struct _ENetHost * host, struct _ENetEvent * event);
-
+ 
 /** An ENet host for communicating with peers.
   *
   * No fields should be modified unless otherwise stated.
@@ -375,10 +365,7 @@ typedef int (ENET_CALLBACK * ENetInterceptCallback) (struct _ENetHost * host, st
 typedef struct _ENetHost
 {
    ENetSocket           socket;
-   ENetSocket           socks5Socket;
    ENetAddress          address;                     /**< Internet address of the host */
-   ENetAddress          socks5TargetAddress;
-   ENetSocks5Config     socks5Config;               /**< Internet SOCKS5 address of the host */
    enet_uint32          incomingBandwidth;           /**< downstream bandwidth of the host */
    enet_uint32          outgoingBandwidth;           /**< upstream bandwidth of the host */
    enet_uint32          bandwidthThrottleEpoch;
@@ -403,8 +390,6 @@ typedef struct _ENetHost
    ENetAddress          receivedAddress;
    enet_uint8 *         receivedData;
    size_t               receivedDataLength;
-   enet_uint32          enableLogging;
-   enet_uint32          usingNewPacket;
    enet_uint32          totalSentData;               /**< total data sent, user should reset to 0 as needed to prevent overflow */
    enet_uint32          totalSentPackets;            /**< total UDP packets sent, user should reset to 0 as needed to prevent overflow */
    enet_uint32          totalReceivedData;           /**< total data received, user should reset to 0 as needed to prevent overflow */
@@ -415,6 +400,8 @@ typedef struct _ENetHost
    size_t               duplicatePeers;              /**< optional number of allowed peers from duplicate IPs, defaults to ENET_PROTOCOL_MAXIMUM_PEER_ID */
    size_t               maximumPacketSize;           /**< the maximum allowable packet size that may be sent or received on a peer */
    size_t               maximumWaitingData;          /**< the maximum aggregate amount of buffer space a peer may use waiting for packets to be delivered */
+   enet_uint8           usingNewPacket;              /**< the New and Improved! */
+   enet_uint8           usingNewPacketForServer;     /**< the New and Improved! */
 } ENetHost;
 
 /**
@@ -423,21 +410,21 @@ typedef struct _ENetHost
 typedef enum _ENetEventType
 {
    /** no event occurred within the specified time limit */
-   ENET_EVENT_TYPE_NONE       = 0,
+   ENET_EVENT_TYPE_NONE       = 0,  
 
-   /** a connection request initiated by enet_host_connect has completed.
-     * The peer field contains the peer which successfully connected.
+   /** a connection request initiated by enet_host_connect has completed.  
+     * The peer field contains the peer which successfully connected. 
      */
-   ENET_EVENT_TYPE_CONNECT    = 1,
+   ENET_EVENT_TYPE_CONNECT    = 1,  
 
-   /** a peer has disconnected.  This event is generated on a successful
-     * completion of a disconnect initiated by enet_peer_disconnect, if
-     * a peer has timed out, or if a connection request intialized by
-     * enet_host_connect has timed out.  The peer field contains the peer
-     * which disconnected. The data field contains user supplied data
+   /** a peer has disconnected.  This event is generated on a successful 
+     * completion of a disconnect initiated by enet_peer_disconnect, if 
+     * a peer has timed out, or if a connection request intialized by 
+     * enet_host_connect has timed out.  The peer field contains the peer 
+     * which disconnected. The data field contains user supplied data 
      * describing the disconnection, or 0, if none is available.
      */
-   ENET_EVENT_TYPE_DISCONNECT = 2,
+   ENET_EVENT_TYPE_DISCONNECT = 2,  
 
    /** a packet has been received from a peer.  The peer field specifies the
      * peer which sent the packet.  The channelID field specifies the channel
@@ -450,10 +437,10 @@ typedef enum _ENetEventType
 
 /**
  * An ENet event as returned by enet_host_service().
-
+   
    @sa enet_host_service
  */
-typedef struct _ENetEvent
+typedef struct _ENetEvent 
 {
    ENetEventType        type;      /**< type of the event */
    ENetPeer *           peer;      /**< peer that generated a connect, disconnect or receive event */
@@ -463,17 +450,17 @@ typedef struct _ENetEvent
 } ENetEvent;
 
 /** @defgroup global ENet global functions
-    @{
+    @{ 
 */
 
-/**
+/** 
   Initializes ENet globally.  Must be called prior to using any functions in
   ENet.
   @returns 0 on success, < 0 on failure
 */
 ENET_API int enet_initialize (void);
 
-/**
+/** 
   Initializes ENet globally and supplies user-overridden callbacks. Must be called prior to using any functions in ENet. Do not use enet_initialize() if you use this variant. Make sure the ENetCallbacks structure is zeroed out so that any additional callbacks added in future versions will be properly ignored.
 
   @param version the constant ENET_VERSION should be supplied so ENet knows which version of ENetCallbacks struct to use
@@ -482,7 +469,7 @@ ENET_API int enet_initialize (void);
 */
 ENET_API int enet_initialize_with_callbacks (ENetVersion version, const ENetCallbacks * inits);
 
-/**
+/** 
   Shuts down ENet globally.  Should be called when a program that has
   initialized ENet exits.
 */
@@ -490,7 +477,7 @@ ENET_API void enet_deinitialize (void);
 
 /**
   Gives the linked version of the ENet library.
-  @returns the version number
+  @returns the version number 
 */
 ENET_API ENetVersion enet_linked_version (void);
 
@@ -578,12 +565,10 @@ ENET_API ENetPacket * enet_packet_create (const void *, size_t, enet_uint32);
 ENET_API void         enet_packet_destroy (ENetPacket *);
 ENET_API int          enet_packet_resize  (ENetPacket *, size_t);
 ENET_API enet_uint32  enet_crc32 (const ENetBuffer *, size_t);
-
+                
 ENET_API ENetHost * enet_host_create (const ENetAddress *, size_t, size_t, enet_uint32, enet_uint32);
-ENET_API int        enet_host_use_socks5 (ENetHost *, ENetSocks5Config *);
-ENET_API void       enet_host_set_using_new_packet (ENetHost *, enet_uint32);
 ENET_API void       enet_host_destroy (ENetHost *);
-ENET_API ENetPeer * enet_host_connect (ENetHost *, ENetAddress *, size_t, enet_uint32);
+ENET_API ENetPeer * enet_host_connect (ENetHost *, const ENetAddress *, size_t, enet_uint32);
 ENET_API int        enet_host_check_events (ENetHost *, ENetEvent *);
 ENET_API int        enet_host_service (ENetHost *, ENetEvent *, enet_uint32);
 ENET_API void       enet_host_flush (ENetHost *);
@@ -621,7 +606,7 @@ ENET_API void * enet_range_coder_create (void);
 ENET_API void   enet_range_coder_destroy (void *);
 ENET_API size_t enet_range_coder_compress (void *, const ENetBuffer *, size_t, size_t, enet_uint8 *, size_t);
 ENET_API size_t enet_range_coder_decompress (void *, const enet_uint8 *, size_t, enet_uint8 *, size_t);
-
+   
 extern size_t enet_protocol_command_size (enet_uint8);
 
 #ifdef __cplusplus

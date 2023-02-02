@@ -115,8 +115,7 @@ char* arrayJoin(char** array, char* joinVal) {
 }
 
 char* generateHex(int len) {
-    static char* result;
-    result = malloc(len ? len : 17);
+    char* result = malloc(len ? len : 17);
     char* hexVal = "0123456789ABCDEF";
     if (!len) {
         for (int a = 0, b = 0; a < 17; a++) {
@@ -139,4 +138,22 @@ int findStr(char* str, char* toFind) {
         if (b == strlen(toFind)) return a + 1;
     }
     return 0;
+}
+
+char isStr(unsigned char* str, unsigned char* toFind) {
+    for (int a = 0; a < strlen(toFind); a++) {
+        if (str[a] != toFind[a]) return 0;
+    }
+    if (str[strlen(toFind)] != '\0') return 0;
+    return 1;
+}
+
+char includeStr(const unsigned char* str, const unsigned char* toFind, int len) {
+	int toFindLen = strlen(toFind);
+	for (int a = 0, b = 0; a < len; a++) {
+		if (str[a] == toFind[b]) b++;
+		else b = 0;
+		if (toFindLen == b) return 1;
+	}
+	return 0;
 }

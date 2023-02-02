@@ -68,12 +68,12 @@ typedef struct _ENetProtocolHeader
    enet_uint16 sentTime;
 } ENET_PACKED ENetProtocolHeader;
 
-typedef struct _ENetProtocolHeaderUbisoft
+typedef struct _ENetNewProtocolHeader
 {
    enet_uint16 integrity[3];
    enet_uint16 peerID;
    enet_uint16 sentTime;
-} ENET_PACKED ENetProtocolHeaderUbisoft;
+} ENET_PACKED ENetNewProtocolHeader;
 
 typedef struct _ENetProtocolCommandHeader
 {
@@ -196,88 +196,6 @@ typedef union _ENetProtocol
    ENetProtocolBandwidthLimit bandwidthLimit;
    ENetProtocolThrottleConfigure throttleConfigure;
 } ENET_PACKED ENetProtocol;
-
-enum
-{
-   ENET_SOCKS5_VERSION = 5,
-   ENET_SOCKS5_AUTH_VERSION = 1,
-   ENET_SOCKS5_AUTH_SUCCESS = 0,
-};
-
-typedef enum _ENetSocks5MethodType
-{
-   ENET_SOCKS5_METHOD_NOAUTH,
-   ENET_SOCKS5_METHOD_GSSAPI,
-   ENET_SOCKS5_METHOD_USERPASS,
-   ENET_SOCKS5_METHOD_INVALID = 0xFF,
-} ENetSocks5MethodType;
-
-typedef enum _ENetSocks5CommandCode
-{
-   ENET_SOCKS5_COMMAND_CONNECT = 1,
-   ENET_SOCKS5_COMMAND_BIND,
-   ENET_SOCKS5_COMMAND_UDP_ASSOCIATE,
-} ENetSocks5CommandCode;
-
-typedef enum _ENetsocks5ConfigType
-{
-   ENET_SOCKS5_ADDRESS_IPV4 = 1,
-   ENET_SOCKS5_ADDRESS_DOMAIN = 3,
-   ENET_SOCKS5_ADDRESS_IPV6 = 4,
-} ENetsocks5ConfigType;
-
-typedef enum _ENetSocks5ReplyStatus
-{
-   ENET_SOCKS5_REPLY_SUCCEED,
-   ENET_SOCKS5_REPLY_SOCKS_SERVER_FAILURE,
-   ENET_SOCKS5_REPLY_CONNECTION_NOT_ALLOWED,
-   ENET_SOCKS5_REPLY_NETWORK_UNREACHABLE,
-   ENET_SOCKS5_REPLY_CONNECTION_REFUSED,
-   ENET_SOCKS5_REPLY_TTL_EXPIRED,
-   ENET_SOCKS5_REPLY_COMMAND_NOT_SUPPORTED,
-   ENET_SOCKS5_REPLY_addressType_NOT_SUPPORTED,
-} ENetSocks5ReplyStatus;
-
-typedef struct _ENetSocks5MethodRequest
-{
-   enet_uint8 version;
-   enet_uint8 methodCount;
-   enet_uint8 methods[255];
-} ENET_PACKED ENetSocks5MethodRequest;
-
-typedef struct _ENetSocks5MethodResponse
-{
-   enet_uint8 version;
-   enet_uint8 method;
-} ENET_PACKED ENetSocks5MethodResponse;
-
-typedef struct _ENetSocks5AuthResponse
-{
-   enet_uint8 version;
-   enet_uint8 status;
-} ENET_PACKED ENetSocks5AuthResponse;
-
-typedef struct _ENetSocks5Connection
-{
-   enet_uint8 version;
-   union {
-      enet_uint8 command;
-      enet_uint8 status;
-   };
-   enet_uint8 reserved;
-   enet_uint8 addressType;
-   enet_uint32 addressHost; // since we will use ipv4 anyways
-   enet_uint16 addressPort;
-} ENET_PACKED ENetSocks5Connection;
-
-typedef struct _ENetSocks5UDP
-{
-   enet_uint16 reserved;
-   enet_uint8 fragment;
-   enet_uint8 addressType;
-   enet_uint32 addressHost; // since we will use ipv4 anyways
-   enet_uint16 addressPort;
-} ENET_PACKED ENetSocks5UDP;
 
 #ifdef _MSC_VER
 #pragma pack(pop)
