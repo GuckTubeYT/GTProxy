@@ -14,7 +14,7 @@ A Growtopia Proxy to get packet from Client and Server
 6. And then, put `-lws2_32 -lwinmm` on `Other linker options`. after put that, press OK <br><br>
 ![image](https://user-images.githubusercontent.com/56192597/216291666-1b87ddfa-2938-4c20-96d8-a6a828c36e77.png)
 7. and now, you are ready to build the project, to build the project, you can press ![image](https://user-images.githubusercontent.com/56192597/216292002-8de7d903-c974-4a37-bda4-e0f8917342e3.png)
-## Manual Build (Windows Version)
+## Manual Build (GCC Windows Version)
 If you have `gcc is not recognize` issue, please read 1 to 5
 1. Make sure, you installed GCC for Windows (you can use CodeBlocks MINGW Version for manual build)
 2. to making environment, goto `Control Panel` and type `environment` and then press `Edit the system environment variables`<br><br>
