@@ -53,9 +53,9 @@
 #include <poll.h>
 #endif
 
-#if !defined(HAS_SOCKLEN_T) && !defined(__socklen_t_defined)
-typedef int socklen_t;
-#endif
+//#if !defined(HAS_SOCKLEN_T) && !defined(__socklen_t_defined)
+//typedef int socklen_t;
+//#endif
 
 #ifndef MSG_NOSIGNAL
 #define MSG_NOSIGNAL 0
