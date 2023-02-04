@@ -75,6 +75,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="eventServer.h" />
+		<Unit filename="externInit.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="httpService.c">
 			<Option compilerVar="CC" />
 		</Unit>

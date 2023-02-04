@@ -170,7 +170,7 @@
 
 1673859448 c:\users\dell\desktop\gtproxy\tlse\tlse.h
 
-1675329344 source:c:\users\dell\desktop\gtproxy\main.c
+1675440775 source:c:\users\dell\desktop\gtproxy\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -186,6 +186,7 @@
 	"eventClient.h"
 	"eventServer.h"
 	"mainVar.h"
+	"proxyStruct.h"
 
 1674348266 c:\users\dell\desktop\gtproxy\tlse\httpservice.c
 	<stdio.h>
@@ -230,8 +231,9 @@
 
 1674785971 c:\users\dell\desktop\gtproxy\httpservice.h
 
-1675340031 source:c:\users\dell\desktop\gtproxy\httpservice.c
+1675442000 source:c:\users\dell\desktop\gtproxy\httpservice.c
 	<stdio.h>
+	<stdlib.h>
 	<sys/types.h>
 	<winsock2.h>
 	<sys/socket.h>
@@ -245,7 +247,7 @@
 1675256014 c:\users\dell\desktop\gtproxy\packet.h
 	"enet/include/enet.h"
 
-1675218604 c:\users\dell\desktop\gtproxy\proxystruct.h
+1675443546 c:\users\dell\desktop\gtproxy\proxystruct.h
 
 1675269595 source:c:\users\dell\desktop\gtproxy\packet.c
 	<stdio.h>
@@ -257,7 +259,7 @@
 	"packet.h"
 	"proxyStruct.h"
 
-1675341380 source:c:\users\dell\desktop\gtproxy\eventclient.c
+1675440756 source:c:\users\dell\desktop\gtproxy\eventclient.c
 	<stdio.h>
 	<string.h>
 	"eventClient.h"
@@ -269,18 +271,18 @@
 	"packet.h"
 	"proxyStruct.h"
 
-1675269008 c:\users\dell\desktop\gtproxy\eventclient.h
+1675440734 c:\users\dell\desktop\gtproxy\eventclient.h
 	"enet/include/enet.h"
 
-1675255510 c:\users\dell\desktop\gtproxy\eventserver.h
+1675440611 c:\users\dell\desktop\gtproxy\eventserver.h
 	"enet/include/enet.h"
 
-1675268762 c:\users\dell\desktop\gtproxy\mainvar.h
+1675443584 c:\users\dell\desktop\gtproxy\mainvar.h
 	"enet/include/enet.h"
 	<windows.h>
 	<pthread.h>
 
-1675312011 source:c:\users\dell\desktop\gtproxy\eventserver.c
+1675440765 source:c:\users\dell\desktop\gtproxy\eventserver.c
 	<stdio.h>
 	<string.h>
 	"eventServer.h"
@@ -288,4 +290,11 @@
 	"packet.h"
 	"utils.h"
 	"proxyStruct.h"
+
+1675443477 source:c:\users\dell\desktop\gtproxy\externinit.c
+	"proxyStruct.h"
+	"enet/include/enet.h"
+	"httpService.h"
+	<windows.h>
+	<pthread.h>
 
