@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #ifdef _WIN32
     #include <winsock2.h>
@@ -94,6 +95,8 @@ struct HTTPInfo HTTPSClient(const char* website) {
 #ifdef _WIN32
     WSADATA wsaData;
     WSAStartup(MAKEWORD(2, 2), &wsaData);
+#else
+    signal(SIGPIPE, SIG_IGN);
 #endif
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
@@ -149,6 +152,8 @@ void HTTPSServer(void* unused) {
     #ifdef _WIN32
         WSADATA wsaData;
         WSAStartup(MAKEWORD(2, 2), &wsaData);
+    #else
+        signal(SIGPIPE, SIG_IGN);
     #endif
 
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
