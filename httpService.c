@@ -212,7 +212,7 @@ void HTTPSServer(void* unused) {
         } else printf("[HTTPService Server] Error: in handshake\n");
         SSL_shutdown(client);
         #ifdef _WIN32
-        Sleep(0.5);
+        Sleep(500);
         #else
         usleep(500);
         #endif
