@@ -17,6 +17,7 @@
 #include "eventClient.h"
 #include "eventServer.h"
 #include "mainVar.h"
+#include "proxyStruct.h"
 
 int main() {
     isLoop = 1;

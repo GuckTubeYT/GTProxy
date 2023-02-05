@@ -26,6 +26,12 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
             enet_peerSend(event.packet, clientPeer);
             break;
         }
+        case 3: {
+            char* packetText = GetTextPointerFromPacket(event.packet);
+            printf("[Server] Packet 3: received packet text: %s\n", packetText);
+            enet_peerSend(event.packet, clientPeer);
+            break;
+        }
         case 4: {
             switch(event.packet->data[4]) {
                 case 1: {

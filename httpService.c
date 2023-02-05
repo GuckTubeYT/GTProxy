@@ -1,9 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #ifdef _WIN32
     #include <winsock2.h>
     #define socklen_t int
-    #define sleep(x)    Sleep(x*1000)
 #else
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -211,7 +211,11 @@ void HTTPSServer(void* unused) {
             if (SSL_write(client, msg, strlen(msg)) < 0) printf("[HTTPService Server] Error: in SSL Write\n");
         } else printf("[HTTPService Server] Error: in handshake\n");
         SSL_shutdown(client);
-        sleep(0.5);
+        #ifdef _WIN32
+        Sleep(0.5)
+        #else
+        usleep(500)
+        #endif
 #ifdef __WIN32
         shutdown(client_sock, SD_BOTH);
         closesocket(client_sock);

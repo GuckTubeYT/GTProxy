@@ -5,24 +5,24 @@
 
 #ifdef __WIN32
 #include <windows.h>
-HANDLE HTTPThread;
+extern HANDLE HTTPThread;
 #else
 #include <pthread.h>
-pthread_t HTTPThread;
+extern pthread_t HTTPThread;
 #endif // __WIN32
 
-struct HTTPInfo info;
+extern struct HTTPInfo info;
 
-ENetHost* realServer;
-ENetPeer* realPeer;
-ENetAddress realAddress;
+extern ENetHost* realServer;
+extern ENetPeer* realPeer;
+extern ENetAddress realAddress;
 
-ENetHost* proxyServer;
-ENetPeer* proxyPeer;
-ENetAddress proxyAddress;
+extern ENetHost* proxyServer;
+extern ENetPeer* proxyPeer;
+extern ENetAddress proxyAddress;
 
-char isLoop;
-char doLoop;
-char HTTPAlreadyOn;
+extern char isLoop;
+extern char doLoop;
+extern char HTTPAlreadyOn;
 
 #endif // MAINVAR_H

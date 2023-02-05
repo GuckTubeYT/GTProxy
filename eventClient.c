@@ -1,4 +1,4 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include <string.h>
 
 #include "eventClient.h"
@@ -29,7 +29,7 @@ void clientConnect() {
         OnPacket.OnSendToServer = 0;
     } else {
         printf("[Client] Client connected into proxy\n[Client] Connecting to Growtopia Server...\n");
-    
+
         info = HTTPSClient("2.17.198.162");
 
         char** arr = strsplit(info.buffer, "\n", 0);
@@ -44,14 +44,12 @@ void clientConnect() {
 
         if (currentInfo.meta) free(currentInfo.meta);
         asprintf(&currentInfo.meta, "%s", meta[1]);
-        
+
         free(arr);
         free(server);
         free(port);
         free(meta);
     }
-
-    
 }
 
 void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) {
