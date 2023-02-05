@@ -4,7 +4,6 @@
 #ifdef _WIN32
     #include <winsock2.h>
     #define socklen_t int
-    #define sleep(x)    Sleep(x*1000)
 #else
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -95,8 +94,6 @@ struct HTTPInfo HTTPSClient(const char* website) {
 #ifdef _WIN32
     WSADATA wsaData;
     WSAStartup(MAKEWORD(2, 2), &wsaData);
-#else
-    signal(SIGPIPE, SIG_IGN);
 #endif
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
@@ -152,8 +149,6 @@ void HTTPSServer(void* unused) {
     #ifdef _WIN32
         WSADATA wsaData;
         WSAStartup(MAKEWORD(2, 2), &wsaData);
-    #else
-        signal(SIGPIPE, SIG_IGN);
     #endif
 
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -216,7 +211,11 @@ void HTTPSServer(void* unused) {
             if (SSL_write(client, msg, strlen(msg)) < 0) printf("[HTTPService Server] Error: in SSL Write\n");
         } else printf("[HTTPService Server] Error: in handshake\n");
         SSL_shutdown(client);
-        sleep(0.5);
+        #ifdef _WIN32
+        Sleep(0.5)
+        #else
+        usleep(500)
+        #endif
 #ifdef __WIN32
         shutdown(client_sock, SD_BOTH);
         closesocket(client_sock);
