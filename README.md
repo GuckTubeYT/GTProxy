@@ -27,3 +27,8 @@ If you have `gcc is not recognize` issue, please read 1 to 5
 ![image](https://user-images.githubusercontent.com/56192597/216310430-c2d1c2b7-ea67-431d-9ff5-48c273523890.png)
 6. after you put GCC Path to system variables, now open Command Prompt, and cd to project path, and type `build`<br><br>
 ![image](https://user-images.githubusercontent.com/56192597/216310843-8442f295-5769-42e7-86f6-ce74f6ff4dc8.png)
+## Manual Build (Linux Version)
+1. first, you need build-essential, to install build-essential type `sudo apt install build-essential`
+2. after install build-essential, do `git clone https://github.com/GuckTubeYT/GTProxy` (if you get error message like this `git: command not found`, you must install git, to install git, type `sudo apt install git`)
+3. goto the project folder, and then type `bash build.sh`
+4. to run App, type `./proxy`
