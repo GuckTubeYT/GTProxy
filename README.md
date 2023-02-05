@@ -1,5 +1,6 @@
 # GTProxy
-A Growtopia Proxy to get packet from Client and Server
+A Growtopia Proxy to get packet from Client and Server<br>
+WARNING: Please dont use linux build for now, because linux version still very unstable and you will get shadowban, so, use Windows build
 # Build
 - [CodeBlocks (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#codeblocks-windows-version)
 - [Manual Build (GCC Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-windows-version)
