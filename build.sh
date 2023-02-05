@@ -1,1 +1,1 @@
-gcc *.c enet/*.c tlse/tlse.c -lpthread
+gcc *.c enet/*.c tlse/tlse.c -lpthread -o proxy
