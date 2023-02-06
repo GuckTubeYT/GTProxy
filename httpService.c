@@ -133,9 +133,10 @@ struct HTTPInfo HTTPSClient(const char* website) {
                 send_pending(sockfd, context);
             }
             info.bufferLen = tls_read(context, read_buffer, 0xFFFF - 1);
+            read_buffer[info.bufferLen] = '\0';
         }
     }
-    info.buffer = read_buffer + findStr(read_buffer, "\r\n\r\n");
+    info.buffer = read_buffer;
     return info;
 }
 
