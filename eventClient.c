@@ -31,7 +31,7 @@ void clientConnect() {
         printf("[Client] Client connected into proxy\n[Client] Connecting to Growtopia Server...\n");
 
         info = HTTPSClient("2.17.198.162");
-
+        printf("%s\n", info.buffer);
         char** arr = strsplit(info.buffer, "\n", 0);
         char** server = strsplit(arr[0], "|", 0);
         char** port = strsplit(arr[1], "|", 0);
@@ -41,7 +41,6 @@ void clientConnect() {
         enet_address_set_host(&realAddress, server[1]);
         realAddress.port = atoi(port[1]);
         realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
-
         if (currentInfo.meta) free(currentInfo.meta);
         asprintf(&currentInfo.meta, "%s", meta[1]);
 

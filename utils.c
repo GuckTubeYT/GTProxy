@@ -115,7 +115,7 @@ char* arrayJoin(char** array, char* joinVal) {
 }
 
 char* generateHex(int len) {
-    char* result = malloc(len ? len : 17);
+    char* result = malloc(len ? len + 1 : 17 + 1);
     char* hexVal = "0123456789ABCDEF";
     if (!len) {
         for (int a = 0, b = 0; a < 17; a++) {
