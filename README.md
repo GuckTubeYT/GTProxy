@@ -1,5 +1,6 @@
 # GTProxy
 A Growtopia Proxy to get packet from Client and Server, no shadowban i hope<br>
+
 # Build
 - [CodeBlocks (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#codeblocks-windows-version)
 - [Manual Build (GCC Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-gcc-windows-version)
@@ -73,10 +74,10 @@ If you have `gcc is not recognize` issue, please read 1 to 5
 ## Android (Without root)
 1. Download and Install PowerTunnel-Android [here](https://github.com/krlvm/PowerTunnel-Android/releases/)
 2. After download and install PowerTunnel-Android, Download PowerTunnel-WebRedirect Plugin [here](https://github.com/GuckTubeYT/PowerTunnel-WebRedirect)
-3. To add the plugin, open PowerTunnel app, and then press Plugins ![IMG_20230214_225119](https://user-images.githubusercontent.com/56192597/218789113-6d1c7af0-a900-477b-aaa7-11019facdaf5.jpg)
+3. To add the plugin, open PowerTunnel app, and then press Plugins <img width="15" alt="Screenshot 2023-02-15 070749" src="https://user-images.githubusercontent.com/56192597/218891777-6fc0be5c-13ad-49dd-8bcd-a578085fdc49.png">
 4. And then, press + to install the plugin, and then select PowerTunnel-WebRedirect.jar
 5. After add the plugin, press options at WebRedirect
-6. And then, make it like this
-![Screenshot_2023-02-14-22-55-02-74_b4fd389a35c10d11b8402d4cfd11e689](https://user-images.githubusercontent.com/56192597/218789669-c9bb740b-a5c6-45d5-8f47-54c0bb6c127b.jpg)
+6. And then, make it like this<br>
+![image](https://user-images.githubusercontent.com/56192597/218891227-2c8f7867-097a-4e56-8841-e9e32dd3ee08.png)<br>
 7. After you set like that screenshot, goto back, and checklist the PowerTunnel-WebRedirect
 8. now you can start the PowerTunnel
