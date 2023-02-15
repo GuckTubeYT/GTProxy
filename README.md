@@ -81,3 +81,5 @@ If you have `gcc is not recognize` issue, please read 1 to 5
 ![image](https://user-images.githubusercontent.com/56192597/218891227-2c8f7867-097a-4e56-8841-e9e32dd3ee08.png)<br>
 7. After you set like that screenshot, goto back, and checklist the PowerTunnel-WebRedirect
 8. now you can start the PowerTunnel
+9. after start the PowerTunnel, goto httpService, and then change port to 8080 at [line 163](https://github.com/GuckTubeYT/GTProxy/blob/d79049d48f7ace68a967ebfb8145ffce8a25174f/httpService.c#L163)
+10. after you change the port, now you can build `bash build.sh` and start the app `./proxy`
