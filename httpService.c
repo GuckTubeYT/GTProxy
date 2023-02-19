@@ -122,7 +122,7 @@ struct HTTPInfo HTTPSClient(const char* website) {
     send_pending(sockfd, context);
     unsigned char client_message[0xFFFF];
     int read_size;
-    while ((read_size = recv(sockfd, client_message, sizeof(client_message) , 0)) > 0) {
+    while ((read_size = recv(sockfd, client_message, sizeof(client_message), 0)) > 0) {
         tls_consume_stream(context, client_message, read_size, NULL);
         send_pending(sockfd, context);
         if (tls_established(context)) {
@@ -132,7 +132,8 @@ struct HTTPInfo HTTPSClient(const char* website) {
                 tls_write(context, (unsigned char *)request, strlen(request));
                 send_pending(sockfd, context);
             }
-            info.bufferLen = tls_read(context, read_buffer, 0xFFFF - 1);
+            int tempLen = tls_read(context, read_buffer, 0xFFFF - 1);
+            if (tempLen != 0) info.bufferLen = tempLen;
         }
     }
     read_buffer[info.bufferLen] = '\0';
