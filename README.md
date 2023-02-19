@@ -5,6 +5,7 @@ A Growtopia Proxy to get packet from Client and Server, no shadowban i hope<br>
 - [CodeBlocks (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#codeblocks-windows-version)
 - [Manual Build (GCC Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-gcc-windows-version)
 - [Manual Build (Linux Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-linux-version)
+- [Manual Build (Android Version)](https://github.com/GuckTubeYT/GTProxy#manual-build-android-version)
 ## CodeBlocks (Windows Version)
 1. Download CodeBlocks from http://www.codeblocks.org/downloads/binaries/ and download MINGW Version
 2. Download this project
