@@ -34,7 +34,15 @@ If you have `gcc is not recognize` issue, please read 1 to 5
 2. after install build-essential, do `git clone https://github.com/GuckTubeYT/GTProxy` (if you get error message like this `git: command not found`, you must install git, to install git, type `sudo apt install git`)
 3. goto the project folder, and then type `bash build.sh`
 4. to run App, type `./proxy`
-
+## Manual Build (Android Version)
+1. Download termux at [F-Droid](https://f-droid.org/en/packages/com.termux/) and then install the Termux
+2. After Download and Install Termux, open the App, and do `pkg update` to update the package
+3. After update the package (`pkg update`) now install build-essential and git, to install build-essential and git, type `pkg install build-essential git -y` and then wait until the download and installation done
+4. and then, type `git clone https://github.com/gucktubeyt/gtproxy`
+5. goto the gtproxy folder `cd gtproxy`
+6. and then, type `bash build.sh`
+7. and then, you can run the proxy app, to run proxy app, type `./proxy`
+- [How to connect using Android Without root](https://github.com/GuckTubeYT/GTProxy#android-without-root)
 # How to connect
 ## Android (Without root)
 1. Download and Install PowerTunnel-Android [here](https://github.com/krlvm/PowerTunnel-Android/releases/)
@@ -47,4 +55,3 @@ If you have `gcc is not recognize` issue, please read 1 to 5
 7. After you set like that screenshot, goto back, and checklist the PowerTunnel-WebRedirect
 8. now you can start the PowerTunnel
 9. after start the PowerTunnel, goto httpService, and then change port to 8080 at [line 163](https://github.com/GuckTubeYT/GTProxy/blob/d79049d48f7ace68a967ebfb8145ffce8a25174f/httpService.c#L163)
-10. after you change the port, now you can build `bash build.sh` and start the app `./proxy`
