@@ -1,6 +1,5 @@
 # GTProxy
-A Growtopia Proxy to get packet from Client and Server, no shadowban i hope<br>
-- [How to connect using Android Without root](https://github.com/GuckTubeYT/GTProxy#android-without-root)
+A Growtopia Proxy to get packet from Client and Server, no shadowban
 # Build
 - [CodeBlocks (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#codeblocks-windows-version)
 - [Manual Build (GCC Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-gcc-windows-version)
