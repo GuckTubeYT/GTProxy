@@ -32,7 +32,7 @@ void clientConnect() {
 
         info = HTTPSClient("2.17.198.162");
 
-        char** arr = strsplit(info.buffer, "\n", 0);
+        char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
         char** server = strsplit(arr[0], "|", 0);
         char** port = strsplit(arr[1], "|", 0);
         char** meta = strsplit(arr[14], "|", 0);
