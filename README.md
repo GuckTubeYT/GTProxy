@@ -1,57 +1,10 @@
 # GTProxy
 A Growtopia Proxy to get packet from Client and Server, no shadowban
-# Build
-- [CodeBlocks (Windows Version)](https://github.com/GuckTubeYT/GTProxy/#codeblocks-windows-version)
-- [Manual Build (GCC Windows Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-gcc-windows-version)
-- [Manual Build (Linux Version)](https://github.com/GuckTubeYT/GTProxy/#manual-build-linux-version)
-- [Manual Build (Android Version)](https://github.com/GuckTubeYT/GTProxy#manual-build-android-version)
-## CodeBlocks (Windows Version)
-1. Download CodeBlocks from http://www.codeblocks.org/downloads/binaries/ and download MINGW Version
-2. Download this project
-3. Open `GTProxy.cbp`
-4. Before build this project, Press `Settings --> Compiler...`<br><br>
-![image](https://user-images.githubusercontent.com/56192597/216290797-e8e78f02-d576-4235-86c8-53b28dc61813.png)
-5. And then go to `Linker settings`<br><br>
-![image](https://user-images.githubusercontent.com/56192597/216291324-0becc6b8-b575-4554-994a-32475d316451.png)
-6. And then, put `-lws2_32 -lwinmm` on `Other linker options`. after put that, press OK <br><br>
-![image](https://user-images.githubusercontent.com/56192597/216291666-1b87ddfa-2938-4c20-96d8-a6a828c36e77.png)
-7. and now, you are ready to build the project, to build the project, you can press ![image](https://user-images.githubusercontent.com/56192597/216292002-8de7d903-c974-4a37-bda4-e0f8917342e3.png)
-## Manual Build (GCC Windows Version)
-If you have `gcc is not recognize` issue, please read 1 to 5
-1. Make sure, you installed GCC for Windows (you can use CodeBlocks MINGW Version for manual build)
-2. to making environment, goto `Control Panel` and type `environment` and then press `Edit the system environment variables`<br><br>
-![image](https://user-images.githubusercontent.com/56192597/216309023-f02bbaa0-5c0c-499e-96e6-3ee622c66d1c.png)
-3. press `Environment Variables...`<br><br>
-![image](https://user-images.githubusercontent.com/56192597/216309414-ee4ff480-716a-4a12-ad5c-1b32eae45018.png)
-4. press PATH on System Variables<br><br>
-![image](https://user-images.githubusercontent.com/56192597/216310063-9661f608-f338-4e88-8614-5a1754b7bfec.png)
-5. Add your GCC path to system variables (because i am using CodeBlocks MINGW, so i must search CodeBlocks Path) and then press OK <br><br>
-![image](https://user-images.githubusercontent.com/56192597/216310430-c2d1c2b7-ea67-431d-9ff5-48c273523890.png)
-6. after you put GCC Path to system variables, now open Command Prompt, and cd to project path, and type `build`<br><br>
-![image](https://user-images.githubusercontent.com/56192597/216310843-8442f295-5769-42e7-86f6-ce74f6ff4dc8.png)
-## Manual Build (Linux Version)
-1. first, you need build-essential, to install build-essential type `sudo apt install build-essential`
-2. after install build-essential, do `git clone https://github.com/GuckTubeYT/GTProxy` (if you get error message like this `git: command not found`, you must install git, to install git, type `sudo apt install git`)
-3. goto the project folder, and then type `bash build.sh`
-4. to run App, type `./proxy`
-## Manual Build (Android Version)
-1. Download termux at [F-Droid](https://f-droid.org/en/packages/com.termux/) and then install the Termux
-2. After Download and Install Termux, open the App, and do `pkg update` to update the package
-3. After update the package (`pkg update`) now install build-essential and git, to install build-essential and git, type `pkg install build-essential git -y` and then wait until the download and installation done
-4. and then, type `git clone https://github.com/gucktubeyt/gtproxy`
-5. goto the gtproxy folder `cd gtproxy`
-6. and then, type `bash build.sh`
-7. and then, you can run the proxy app, to run proxy app, type `./proxy`
-- [How to connect using Android Without root](https://github.com/GuckTubeYT/GTProxy#android-without-root)
-# How to connect
-## Android (Without root)
-1. Download and Install PowerTunnel-Android [here](https://github.com/krlvm/PowerTunnel-Android/releases/)
-2. After download and install PowerTunnel-Android, Download PowerTunnel-WebRedirect Plugin [here](https://github.com/GuckTubeYT/PowerTunnel-WebRedirect)
-3. To add the plugin, open PowerTunnel app, and then press Plugins <img width="15" alt="Screenshot 2023-02-15 070749" src="https://user-images.githubusercontent.com/56192597/218891777-6fc0be5c-13ad-49dd-8bcd-a578085fdc49.png">
-4. And then, press + to install the plugin, and then select PowerTunnel-WebRedirect.jar
-5. After add the plugin, press options at WebRedirect
-6. And then, make it like this<br>
-![image](https://user-images.githubusercontent.com/56192597/218891227-2c8f7867-097a-4e56-8841-e9e32dd3ee08.png)<br>
-7. After you set like that screenshot, goto back, and checklist the PowerTunnel-WebRedirect
-8. now you can start the PowerTunnel
-9. after start the PowerTunnel, goto httpService, and then change port to 8080 at [line 163](https://github.com/GuckTubeYT/GTProxy/blob/d79049d48f7ace68a967ebfb8145ffce8a25174f/httpService.c#L163)
+# Wiki
+Now, you can look all information about GTProxy on [Wiki](https://github.com/GuckTubeYT/GTProxy/wiki)
+# Credits
+- Thanks to all of my friend for helping me a lot of making GTProxy
+- [ENet - lsalzman](https://github.com/lsalzman/enet) Growtopia Network Library
+- [TLSe - eduardsui](https://github.com/eduardsui/tlse) Single C file TLS 1.2/1.3 implementation
+- [strsplit.c - mr21](https://github.com/mr21/strsplit.c) String Split
+- [fast-strcmp - mgronhol](https://mgronhol.github.io/fast-strcmp) Fast String Compare
