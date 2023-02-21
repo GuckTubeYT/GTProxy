@@ -100,7 +100,6 @@ char* arrayJoin(char** array, char* joinVal) {
     while(array[a]) pos += strlen(array[a++]) + valLen;
 
     result = malloc(pos);
-    memset(result, 0, pos);
 
     pos = 0, a = 0;
 
@@ -108,8 +107,6 @@ char* arrayJoin(char** array, char* joinVal) {
         sprintf(result + pos, "%s%s", array[a], joinVal);
         pos += strlen(array[a++]) + valLen;
     }
-
-    //result[pos - valLen] = '\0';
 
     return result;
 }

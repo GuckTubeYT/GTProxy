@@ -52,7 +52,7 @@ void clientConnect() {
 }
 
 void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) {
-    printf("[Client] Recevied packet from Client\n");
+    printf("[Client] Recevied packet from Client: %d\n", GetMessageTypeFromPacket(event.packet));
 
     switch(GetMessageTypeFromPacket(event.packet)) {
         case 2: {

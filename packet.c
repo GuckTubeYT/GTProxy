@@ -22,7 +22,7 @@ int GetMessageTypeFromPacket(ENetPacket* packet) {
 void SendPacketPacket(ENetPacket* oldPacket, ENetPeer* peer) {
     ENetPacket* packet = enet_packet_create(NULL, oldPacket->dataLength, oldPacket->flags);
     memcpy(packet->data, oldPacket->data, oldPacket->dataLength);
-    enet_peer_send(peer, 0, packet);
+    if (enet_peer_send(peer, 0, packet)) enet_packet_destroy(packet);
 }
 
 void sendPacket(int val, char* packetText, ENetPeer* peer) {
@@ -72,7 +72,7 @@ ENetPacket* onPacketCreate(char* format, ...) {
 
     va_end(args);
 
-    unsigned char* resultData = malloc(totalData + 1);
+    unsigned char* resultData = malloc(totalData);
     memset(resultData, 0, totalData);
 
     int four = 4;
@@ -88,7 +88,7 @@ ENetPacket* onPacketCreate(char* format, ...) {
     memcpy(resultData + 56, &totalData, 4);
     totalData += 61;
     resultData[memPos++] = strlen(format);
-    
+
     va_start(args, format);
 
     for (int a = 0; a < strlen(format); a++) {
@@ -123,10 +123,9 @@ ENetPacket* onPacketCreate(char* format, ...) {
     }
 
     va_end(args);
-    
-    resultData[totalData] = '\0';
+
     ENetPacket* packet = enet_packet_create(resultData, totalData, ENET_PACKET_FLAG_RELIABLE);
     free(resultData);
-    
+
     return packet;
 }
