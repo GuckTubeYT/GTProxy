@@ -109,7 +109,7 @@ char* arrayJoin(char** array, char* joinVal) {
         pos += strlen(array[a++]) + valLen;
     }
 
-    result[pos - valLen] = '\0';
+    //result[pos - valLen] = '\0';
 
     return result;
 }
