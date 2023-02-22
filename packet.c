@@ -73,6 +73,7 @@ ENetPacket* onPacketCreate(char* format, ...) {
     va_end(args);
 
     unsigned char* resultData = malloc(totalData + 1);
+    memset(resultData, 0, totalData);
 
     int four = 4;
     int one = 1;
@@ -122,7 +123,7 @@ ENetPacket* onPacketCreate(char* format, ...) {
     }
 
     va_end(args);
-	
+
     resultData[totalData] = '\0';
     ENetPacket* packet = enet_packet_create(resultData, totalData, ENET_PACKET_FLAG_RELIABLE);
     free(resultData);
