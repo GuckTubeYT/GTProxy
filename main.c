@@ -22,7 +22,6 @@
 int main() {
     isLoop = 1;
     doLoop = 0;
-
     srand(time(NULL));
 
     memset(&currentInfo, 0, sizeof(currentInfo));
@@ -58,7 +57,7 @@ int main() {
     while(isLoop) {
         ENetEvent proxyEvent;
         ENetEvent realEvent;
-        while(enet_host_service(proxyServer, &proxyEvent, 5) > 0) {
+        while(enet_host_service(proxyServer, &proxyEvent, 0) > 0) {
             proxyPeer = proxyEvent.peer;
             switch(proxyEvent.type) {
                 case ENET_EVENT_TYPE_CONNECT: {
@@ -77,7 +76,7 @@ int main() {
             }
         }
 
-        while(enet_host_service(realServer, &realEvent, 5) > 0) {
+        while(enet_host_service(realServer, &realEvent, 0) > 0) {
             switch(realEvent.type) {
                 case ENET_EVENT_TYPE_CONNECT: {
                     serverConnect();
@@ -96,11 +95,6 @@ int main() {
         }
     }
 
-    free(currentInfo.wk);
-    free(currentInfo.rid);
-    free(currentInfo.mac);
-    if (currentInfo.meta) free(currentInfo.meta);
-
     if (realPeer) enet_peer_disconnect_now(realPeer, 0);
     enet_peer_disconnect_now(proxyPeer, 0);
 
@@ -108,6 +102,11 @@ int main() {
     enet_host_destroy(proxyServer);
 
     enet_deinitialize();
+
+    free(currentInfo.wk);
+    free(currentInfo.rid);
+    free(currentInfo.mac);
+    if (currentInfo.meta) free(currentInfo.meta);
 
     if (doLoop) {
         isLoop = 1;

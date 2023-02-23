@@ -22,9 +22,7 @@ struct OnSendToServer_{
     int port;
     int token;
     int userID;
-    int unkInt;
     char* UUIDToken;
-    char* rawSplit;
 };
 
 extern struct currentInfo_ currentInfo;

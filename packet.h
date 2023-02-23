@@ -1,4 +1,4 @@
-#ifndef PACKET_H
+#ifndef PACKET_H 
 #define PACKET_H
 
 #include "enet/include/enet.h"
