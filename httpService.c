@@ -85,11 +85,13 @@ int send_pending(int client_sock, struct TLSContext *context) {
 }
 
 struct HTTPInfo HTTPSClient(const char* website) {
+    unsigned char read_buffer[0xFFFF];
+    unsigned char client_message[0xFFFF];
+
     int sockfd, portno = 443;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     struct HTTPInfo info;
-    unsigned char read_buffer[0xFFFF];
 
 #ifdef _WIN32
     WSADATA wsaData;
@@ -120,9 +122,9 @@ struct HTTPInfo HTTPSClient(const char* website) {
     tls_make_exportable(context, 1);
     tls_client_connect(context);
     send_pending(sockfd, context);
-    unsigned char client_message[0xFFFF];
+
     int read_size;
-    while ((read_size = recv(sockfd, client_message, sizeof(client_message) , 0)) > 0) {
+    while ((read_size = recv(sockfd, client_message, sizeof(client_message), 0)) > 0) {
         tls_consume_stream(context, client_message, read_size, NULL);
         send_pending(sockfd, context);
         if (tls_established(context)) {
@@ -132,10 +134,15 @@ struct HTTPInfo HTTPSClient(const char* website) {
                 tls_write(context, (unsigned char *)request, strlen(request));
                 send_pending(sockfd, context);
             }
-            info.bufferLen = tls_read(context, read_buffer, 0xFFFF - 1);
+            int tempLen = tls_read(context, read_buffer, 0xFFFF - 1);
+            if (tempLen != 0) info.bufferLen = tempLen;
         }
     }
-    info.buffer = read_buffer + findStr(read_buffer, "\r\n\r\n");
+
+    read_buffer[info.bufferLen] = '\0';
+    info.buffer = read_buffer;
+    SSL_CTX_free(context);
+
     return info;
 }
 
@@ -143,7 +150,6 @@ void HTTPSServer(void* unused) {
     int socket_desc, client_sock;
     socklen_t c;
     struct sockaddr_in server, client;
-    char client_message[0xFFFF];
     const char msg[] = "HTTP/1.1 200 OK\r\nContent-length: 279\r\n\r\nserver|127.0.0.1\nport|17091\ntype|1\n#maint|maintenance\nbeta_server|beta.growtopiagame.com\nbeta_port|26999\nbeta_type|1\nbeta2_server|beta2.growtopiagame.com\nbeta2_port|26999\nbeta2_type|1\nbeta3_server|34.202.7.77\nbeta3_port|26999\nbeta3_type|1\ntype2|0\nmeta|localhost\nRTENDMARKERBS1001";
 
     #ifdef _WIN32
@@ -207,14 +213,13 @@ void HTTPSServer(void* unused) {
         SSL_set_fd(client, client_sock);
 
         if (SSL_accept(client)) {
-            SSL_read(client, client_message, sizeof(client_message));
             if (SSL_write(client, msg, strlen(msg)) < 0) printf("[HTTPService Server] Error: in SSL Write\n");
         } else printf("[HTTPService Server] Error: in handshake\n");
         SSL_shutdown(client);
         #ifdef _WIN32
-        Sleep(0.5)
+        Sleep(500);
         #else
-        usleep(500)
+        usleep(500);
         #endif
 #ifdef __WIN32
         shutdown(client_sock, SD_BOTH);

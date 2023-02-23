@@ -298,3 +298,241 @@
 	<windows.h>
 	<pthread.h>
 
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\callbacks.c
+	"include/enet.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\enet.h
+	<stdlib.h>
+	"win32.h"
+	"unix.h"
+	"types.h"
+	"protocol.h"
+	"list.h"
+	"callbacks.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\win32.h
+	<stdlib.h>
+	<winsock2.h>
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\unix.h
+	<stdlib.h>
+	<sys/time.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<netinet/in.h>
+	<unistd.h>
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\types.h
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\protocol.h
+	"types.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\list.h
+	<stdlib.h>
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\callbacks.h
+	<stdlib.h>
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\compress.c
+	<string.h>
+	"include/enet.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\host.c
+	<string.h>
+	"include/enet.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\list.c
+	"include/enet.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\packet.c
+	<string.h>
+	"include/enet.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\peer.c
+	<string.h>
+	"include/enet.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\protocol.c
+	<stdio.h>
+	<string.h>
+	"include/utility.h"
+	"include/time.h"
+	"include/enet.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\utility.h
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\include\time.h
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\unix.c
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/ioctl.h>
+	<sys/time.h>
+	<netinet/tcp.h>
+	<netdb.h>
+	<unistd.h>
+	<string.h>
+	<errno.h>
+	<time.h>
+	"include/enet.h"
+	<fcntl.h>
+	<poll.h>
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\enet\win32.c
+	"include/enet.h"
+	<windows.h>
+	<mmsystem.h>
+	<ws2ipdef.h>
+	<ws2tcpip.h>
+
+1677131031 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\eventclient.c
+	<stdio.h>
+	<string.h>
+	"eventClient.h"
+	"eventServer.h"
+	"enet/include/enet.h"
+	"httpService.h"
+	"utils.h"
+	"mainVar.h"
+	"packet.h"
+	"proxyStruct.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\eventclient.h
+	"enet/include/enet.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\eventserver.h
+	"enet/include/enet.h"
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\httpservice.h
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\utils.h
+
+1677131164 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\mainvar.h
+	"enet/include/enet.h"
+	<windows.h>
+	<pthread.h>
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\packet.h
+	"enet/include/enet.h"
+
+1677131217 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\proxystruct.h
+
+1677130981 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\externinit.c
+	"proxyStruct.h"
+	"enet/include/enet.h"
+	"httpService.h"
+	<windows.h>
+	<pthread.h>
+
+1677132259 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\httpservice.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/types.h>
+	<winsock2.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<netdb.h>
+	<string.h>
+	"httpService.h"
+	"tlse/tlse.h"
+	"utils.h"
+
+1677125890 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\tlse\tlse.h
+
+1677131453 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<pthread.h>
+	<time.h>
+	<stdint.h>
+	"enet/include/enet.h"
+	"httpService.h"
+	"utils.h"
+	"packet.h"
+	"proxyStruct.h"
+	"eventClient.h"
+	"eventServer.h"
+	"mainVar.h"
+	"proxyStruct.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\packet.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<stdint.h>
+	<stdarg.h>
+	"enet/include/enet.h"
+	"packet.h"
+	"proxyStruct.h"
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\tlse\tlse.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<stdint.h>
+	<time.h>
+	<winsock2.h>
+	<windows.h>
+	<wincrypt.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<errno.h>
+	"libtomcrypt.c"
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/tcp.h>
+	"ktls.h"
+	"tlse.h"
+	"curve25519.c"
+	<sys/socket.h>
+
+1677125889 c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\tlse\libtomcrypt.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<limits.h>
+	<ctype.h>
+	<stdarg.h>
+	<stdarg.h>
+	<signal.h>
+	<assert.h>
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<time.h>
+	<ctype.h>
+	<limits.h>
+	<pthread.h>
+	<stdlib.h>
+	<wchar.h>
+	<signal.h>
+	<stdarg.h>
+	<stdarg.h>
+	<stdarg.h>
+	<stdarg.h>
+	<stdarg.h>
+	<stdarg.h>
+	<stdarg.h>
+	<windows.h>
+	<wincrypt.h>
+
+1677125889 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\utils.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<stdarg.h>
+	<ctype.h>
+	"utils.h"
+
+1677131223 source:c:\users\dell\desktop\gtproxy-66a0431d97a853d78c08cbb167b759c8a81ddcd5\eventserver.c
+	<stdio.h>
+	<string.h>
+	"eventServer.h"
+	"enet/include/enet.h"
+	"packet.h"
+	"utils.h"
+	"proxyStruct.h"
+

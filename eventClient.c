@@ -11,7 +11,7 @@
 #include "proxyStruct.h"
 
 void clientConnect() {
-    if (OnPacket.OnSendToServer) {
+    if (isSendToServer) {
         printf("[Client] Client connected into proxy\n[Client] Connecting to subserver...\n");
         enet_host_destroy(realServer);
 
@@ -26,13 +26,13 @@ void clientConnect() {
         free(OnSendToServer.serverAddress);
         free(OnSendToServer.UUIDToken);
 
-        OnPacket.OnSendToServer = 0;
+        isSendToServer = 0;
     } else {
         printf("[Client] Client connected into proxy\n[Client] Connecting to Growtopia Server...\n");
 
         info = HTTPSClient("2.17.198.162");
 
-        char** arr = strsplit(info.buffer, "\n", 0);
+        char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
         char** server = strsplit(arr[0], "|", 0);
         char** port = strsplit(arr[1], "|", 0);
         char** meta = strsplit(arr[14], "|", 0);
@@ -41,7 +41,6 @@ void clientConnect() {
         enet_address_set_host(&realAddress, server[1]);
         realAddress.port = atoi(port[1]);
         realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
-
         if (currentInfo.meta) free(currentInfo.meta);
         asprintf(&currentInfo.meta, "%s", meta[1]);
 

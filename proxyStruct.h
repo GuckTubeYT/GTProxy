@@ -23,11 +23,15 @@ struct OnSendToServer_{
     int token;
     int userID;
     char* UUIDToken;
+    int unkInt;
+    char* rawSplit;
 };
 
 extern struct currentInfo_ currentInfo;
 extern struct OnPacket_ OnPacket;
 extern struct OnConsoleMessage_ OnConsoleMessage;
 extern struct OnSendToServer_ OnSendToServer;
+
+extern char isSendToServer;
 
 #endif // PROXYSTRUCT_H
