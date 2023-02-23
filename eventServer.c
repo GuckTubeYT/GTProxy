@@ -71,6 +71,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                     }
                                     case 4: {
                                         if (OnPacket.OnSendToServer) {
+                                            asprintf(&OnSendToServer.rawSplit, "%s", value);
                                             char** toSplit = strsplit(value, "|", 0);
                                             asprintf(&OnSendToServer.serverAddress, "%s", toSplit[0]);
                                             asprintf(&OnSendToServer.UUIDToken, "%s", toSplit[2]);
@@ -118,8 +119,12 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                         if (OnPacket.OnSendToServer) OnSendToServer.userID = value;
                                         break;
                                     }
+                                    case 5: {
+                                        if (OnPacket.OnSendToServer) OnSendToServer.unkInt = value;
+                                        break;
+                                    }
                                 }
-                                
+
                                 printf("[Server] TankUpdatePacket Variable: integer found at %d: %d\n", index, value);
                                 break;
                             }
@@ -130,10 +135,14 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                         }
                     }
                     if (OnPacket.OnSendToServer) {
-                        char* tempString;
-                        asprintf(&tempString, "127.0.0.1|0|%s", OnSendToServer.UUIDToken);
-                        enet_peerSend(onPacketCreate("sdddsd", "OnSendToServer", 17091, OnSendToServer.token, OnSendToServer.userID, tempString, 1), clientPeer);
-                        free(tempString);
+                        printf("%s\n", OnSendToServer.rawSplit);
+                        char** splitString = strsplit(OnSendToServer.rawSplit, "|", 0);
+                        splitString[0] = "127.0.0.1";
+                        enet_peerSend(onPacketCreate("sdddsd", "OnSendToServer", 17091, OnSendToServer.token, OnSendToServer.userID, arrayJoin(splitString, "|"), OnSendToServer.unkInt), clientPeer);
+                        free(splitString);
+                        free(OnSendToServer.rawSplit);
+                        OnPacket.OnSendToServer = 0;
+                        isSendToServer = 1;
                     } else enet_peerSend(event.packet, clientPeer);
                     break;
                 }

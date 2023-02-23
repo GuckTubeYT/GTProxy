@@ -12,6 +12,7 @@ pthread_t HTTPThread;
 
 char isLoop;
 char doLoop;
+char isSendToServer;
 char HTTPAlreadyOn;
 
 struct currentInfo_ currentInfo;

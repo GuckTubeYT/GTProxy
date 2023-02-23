@@ -57,7 +57,7 @@ int main() {
     while(isLoop) {
         ENetEvent proxyEvent;
         ENetEvent realEvent;
-        while(enet_host_service(proxyServer, &proxyEvent, 0) > 0) {
+        while(enet_host_service(proxyServer, &proxyEvent, 5) > 0) {
             proxyPeer = proxyEvent.peer;
             switch(proxyEvent.type) {
                 case ENET_EVENT_TYPE_CONNECT: {
@@ -76,7 +76,7 @@ int main() {
             }
         }
 
-        while(enet_host_service(realServer, &realEvent, 0) > 0) {
+        while(enet_host_service(realServer, &realEvent, 5) > 0) {
             switch(realEvent.type) {
                 case ENET_EVENT_TYPE_CONNECT: {
                     serverConnect();

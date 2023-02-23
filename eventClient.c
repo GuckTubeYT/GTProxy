@@ -11,7 +11,7 @@
 #include "proxyStruct.h"
 
 void clientConnect() {
-    if (OnPacket.OnSendToServer) {
+    if (isSendToServer) {
         printf("[Client] Client connected into proxy\n[Client] Connecting to subserver...\n");
         enet_host_destroy(realServer);
 
@@ -26,7 +26,7 @@ void clientConnect() {
         free(OnSendToServer.serverAddress);
         free(OnSendToServer.UUIDToken);
 
-        OnPacket.OnSendToServer = 0;
+        isSendToServer = 0;
     } else {
         printf("[Client] Client connected into proxy\n[Client] Connecting to Growtopia Server...\n");
 
