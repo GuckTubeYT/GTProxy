@@ -11,11 +11,11 @@
 
 #include "enet/include/enet.h"
 #include "httpService.h"
-#include "utils.h"
-#include "packet.h"
+#include "utils/utils.h"
+#include "packet/packet.h"
 #include "proxyStruct.h"
-#include "eventClient.h"
-#include "eventServer.h"
+#include "events/eventClient.h"
+#include "events/eventServer.h"
 #include "mainVar.h"
 #include "proxyStruct.h"
 
