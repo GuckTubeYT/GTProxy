@@ -13,7 +13,7 @@
 
 #include "httpService.h"
 #include "tlse/tlse.h"
-#include "utils.h"
+#include "utils/utils.h"
 
 const unsigned char* certPem = "-----BEGIN CERTIFICATE-----\n\
 MIIDeDCCAmCgAwIBAgIULbUEh/rroH5AIbcdBbMNOGt3uiQwDQYJKoZIhvcNAQEL\n\
@@ -138,11 +138,9 @@ struct HTTPInfo HTTPSClient(const char* website) {
             if (tempLen != 0) info.bufferLen = tempLen;
         }
     }
-
     read_buffer[info.bufferLen] = '\0';
     info.buffer = read_buffer;
     SSL_CTX_free(context);
-
     return info;
 }
 

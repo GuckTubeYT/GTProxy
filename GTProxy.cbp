@@ -67,14 +67,14 @@
 		<Unit filename="enet/win32.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="eventClient.c">
+		<Unit filename="events/eventClient.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="eventClient.h" />
-		<Unit filename="eventServer.c">
+		<Unit filename="events/eventClient.h" />
+		<Unit filename="events/eventServer.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="eventServer.h" />
+		<Unit filename="events/eventServer.h" />
 		<Unit filename="externInit.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -86,19 +86,20 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="mainVar.h" />
-		<Unit filename="packet.c">
+		<Unit filename="packet/packet.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="packet.h" />
+		<Unit filename="packet/packet.h" />
 		<Unit filename="proxyStruct.h" />
 		<Unit filename="tlse/tlse.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tlse/tlse.h" />
-		<Unit filename="utils.c">
+		<Unit filename="utils/switch.h" />
+		<Unit filename="utils/utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="utils.h" />
+		<Unit filename="utils/utils.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

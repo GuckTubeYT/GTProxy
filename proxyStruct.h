@@ -1,23 +1,23 @@
 #ifndef PROXYSTRUCT_H
 #define PROXYSTRUCT_H
 
-struct currentInfo_{
+struct currentInfo_ {
     char* meta;
     char* wk;
     char* rid;
     char* mac;
 };
 
-struct OnPacket_{
+struct OnPacket_ {
     char OnConsoleMessage;
     char OnSendToServer;
 };
 
-struct OnConsoleMessage_{
+struct OnConsoleMessage_ {
     char* message;
 };
 
-struct OnSendToServer_{
+struct OnSendToServer_ {
     char* serverAddress;
     int port;
     int token;
