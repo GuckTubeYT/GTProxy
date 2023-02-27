@@ -1,11 +1,11 @@
 # GTProxy
 A Growtopia Proxy to get packet from Client and Server, no shadowban
+# Wiki
+Now, you can look all information about GTProxy on [Wiki](https://github.com/GuckTubeYT/GTProxy/wiki)
 # TODO List
 - [ ] Add user config
 - [ ] Support Growtopia Private Server
 - [X] Making Custom Command
-# Wiki
-Now, you can look all information about GTProxy on [Wiki](https://github.com/GuckTubeYT/GTProxy/wiki)
 # Credits
 - Thanks to all of my friend for helping me a lot of making GTProxy
 - [ENet - lsalzman](https://github.com/lsalzman/enet) Growtopia Network Library
