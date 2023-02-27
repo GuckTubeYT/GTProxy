@@ -1,5 +1,3 @@
-#define SWITCH_IMPL
-
 #include <stdio.h>
 #include <string.h>
 

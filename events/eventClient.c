@@ -1,3 +1,5 @@
+#define SWITCH_IMPL
+
 #include <stdio.h>
 #include <string.h>
 
@@ -6,6 +8,7 @@
 #include "../enet/include/enet.h"
 #include "../httpService.h"
 #include "../utils/utils.h"
+#include "../utils/switch.h"
 #include "../mainVar.h"
 #include "../packet/packet.h"
 #include "../proxyStruct.h"
@@ -67,10 +70,24 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 sendPacket(2, resultSpoofed, serverPeer);
                 printf("[Client] Spoofed Login info: %s\n", resultSpoofed);
                 free(loginInfo);
-            } else {
-                printf("[Client] Packet 2: received packet text: %s\n", packetText);
-                enet_peerSend(event.packet, serverPeer);
+                break;
             }
+
+            printf("[Client] Packet 2: received packet text: %s\n", packetText);
+
+            SWITCH(packetText + 19)
+                CASE("/proxyhelp")
+                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld", clientPeer);
+                    break;
+                    BREAK
+                CASE("/helloworld")
+                    sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
+                    break;
+                    BREAK
+                DEFAULT
+            END
+
+            enet_peerSend(event.packet, serverPeer);
             break;
         }
         case 3: {
