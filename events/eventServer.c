@@ -6,7 +6,6 @@
 #include "../packet/packet.h"
 #include "../utils/utils.h"
 #include "../proxyStruct.h"
-#include "../utils/switch.h"
 
 void serverConnect() {
     printf("[Server] Proxy connected into Server\n");
@@ -59,17 +58,14 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
                                 switch(index) {
                                     case 0: {
-                                        SWITCH(value)
-                                            CASE("OnSendToServer")
-                                                memset(&OnSendToServer, 0, sizeof(OnSendToServer));
-                                                OnPacket.OnSendToServer = 1;
-                                                BREAK
-                                            CASE("OnConsoleMessage")
-                                                memset(&OnConsoleMessage, 0, sizeof(OnConsoleMessage));
-                                                OnPacket.OnConsoleMessage = 1;
-                                                BREAK
-                                            DEFAULT
-                                        END
+                                        if (isStr(value, "OnSendToServer")) {
+                                            memset(&OnSendToServer, 0, sizeof(OnSendToServer));
+                                            OnPacket.OnSendToServer = 1;
+                                        }
+                                        else if (isStr(value, "OnConsoleMessage")) {
+                                            memset(&OnConsoleMessage, 0, sizeof(OnConsoleMessage));
+                                            OnPacket.OnConsoleMessage = 1;
+                                        }
                                         break;
                                     }
                                     case 4: {

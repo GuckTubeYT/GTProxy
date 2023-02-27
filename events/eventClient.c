@@ -8,7 +8,6 @@
 #include "../enet/include/enet.h"
 #include "../httpService.h"
 #include "../utils/utils.h"
-#include "../utils/switch.h"
 #include "../mainVar.h"
 #include "../packet/packet.h"
 #include "../proxyStruct.h"
@@ -75,17 +74,16 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
             printf("[Client] Packet 2: received packet text: %s\n", packetText);
 
-            SWITCH(packetText + 19)
-                CASE("/proxyhelp")
-                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld", clientPeer);
-                    break;
-                    BREAK
-                CASE("/helloworld")
-                    sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
-                    break;
-                    BREAK
-                DEFAULT
-            END
+            char* commandText = packetText + 19;
+
+            if (includeStr(commandText, "/proxyhelp", 10)) {
+                sendPacket(3, "action|log\nmsg|>> Commands: /helloworld", clientPeer);
+                break;
+            }
+            else if (includeStr(commandText, "/helloworld", 11)) {
+                sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
+                break;
+            }
 
             enet_peerSend(event.packet, serverPeer);
             break;
