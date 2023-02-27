@@ -140,6 +140,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                         }
                     }
                     if (OnPacket.OnSendToServer) {
+                        printf("%s\n", OnSendToServer.rawSplit);
                         char** splitString = strsplit(OnSendToServer.rawSplit, "|", 0);
                         splitString[0] = "127.0.0.1";
                         enet_peerSend(onPacketCreate("sdddsd", "OnSendToServer", 17091, OnSendToServer.token, OnSendToServer.userID, arrayJoin(splitString, "|"), OnSendToServer.unkInt), clientPeer);
