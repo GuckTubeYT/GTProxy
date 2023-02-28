@@ -1,5 +1,3 @@
-#define SWITCH_IMPL
-
 #include <stdio.h>
 #include <string.h>
 
@@ -74,14 +72,25 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
             printf("[Client] Packet 2: received packet text: %s\n", packetText);
 
-            char* commandText = packetText + 19;
+            if ((packetText + 19)[0] == '/') {
+                char** command = strsplit(packetText + 19, " ", 0);
+                if (isStr(command[0], "/proxyhelp")) {
+                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld", clientPeer);
+                }
+                else if (isStr(command[0], "/helloworld")) {
+                    sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
+                }
+                else if (isStr(command[0], "/testarg")) {
+                    if (!command[1]) {
+                        sendPacket(3, "action|log\nmsg|Please input argument", clientPeer);
+                        free(command); // prevent memleak
+                        break;
+                    }
+                    sendPacket(3, CatchMessage("action|log\nmsg|%s", command[1]), clientPeer);
+                }
+                else enet_peerSend(event.packet, serverPeer);
 
-            if (includeStr(commandText, "/proxyhelp", 10)) {
-                sendPacket(3, "action|log\nmsg|>> Commands: /helloworld", clientPeer);
-                break;
-            }
-            else if (includeStr(commandText, "/helloworld", 11)) {
-                sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
+                free(command); // prevent memleak
                 break;
             }
 
