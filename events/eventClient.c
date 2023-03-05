@@ -88,6 +88,14 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                     }
                     sendPacket(3, CatchMessage("action|log\nmsg|%s", command[1]), clientPeer);
                 }
+                else if (isStr(command[0], "/warp")) {
+                    if (!command[1]) {
+                        sendPacket(3, "action|log\nmsg|Please input world name", clientPeer);
+                        free(command); // prevent memleak
+                        break;
+                    }
+                    sendPacket(3, CatchMessage("action|join_request\nname|%s\ninvitedWorld|0", command[1]), serverPeer);
+                }
                 else enet_peerSend(event.packet, serverPeer);
 
                 free(command); // prevent memleak
