@@ -76,6 +76,8 @@ ENetPacket* onPacketCreate(char* format, ...) {
     memset(resultData, 0, totalData);
 
     struct GameUpdatePacket packet_t;
+    memset(&packet_t, 0, 60);
+
     packet_t.type = 4;
     packet_t.netid = 1;
     packet_t.item = -1;
