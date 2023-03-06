@@ -75,20 +75,18 @@ ENetPacket* onPacketCreate(char* format, ...) {
     unsigned char* resultData = malloc(totalData + 1);
     memset(resultData, 0, totalData);
 
-    int four = 4;
-    int one = 1;
-    int negativeOne = -1;
-    int eight = 8;
-
-    memcpy(resultData, &four, 4);
-    memcpy(resultData + 4, &one, 4);
-    memcpy(resultData + 8, &negativeOne, 4);
-    memcpy(resultData + 16, &eight, 4);
+    struct GameUpdatePacket packet_t;
+    packet_t.type = 4;
+    packet_t.netid = 1;
+    packet_t.item = -1;
+    packet_t.int_var = 8;
     totalData -= 61;
-    memcpy(resultData + 56, &totalData, 4);
+    packet_t.data = totalData;
     totalData += 61;
-    resultData[memPos++] = strlen(format);
+    memcpy(resultData, &packet_t, 60);
 
+    resultData[memPos++] = strlen(format);
+    
     va_start(args, format);
 
     for (int a = 0; a < strlen(format); a++) {
