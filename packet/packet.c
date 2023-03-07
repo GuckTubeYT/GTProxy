@@ -40,6 +40,12 @@ void enet_peerSend(ENetPacket* packet, ENetPeer* peer) {
     if (enet_peer_send(peer, 0, packet)) enet_packet_destroy(packet);
 }
 
+void sendPacketRaw(void* packet, int packetSize, ENetPeer* peer) {
+    ENetPacket* enetPacket = enet_packet_create(NULL, packetSize + 1, ENET_PACKET_FLAG_RELIABLE);
+    memcpy(enetPacket->data, packet, packetSize);
+    enet_peerSend(enetPacket, peer);
+}
+
 ENetPacket* onPacketCreate(char* format, ...) {
     va_list args;
     va_start(args, format);
