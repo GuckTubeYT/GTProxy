@@ -9,6 +9,7 @@ void SendPacketPacket(ENetPacket* oldPacket, ENetPeer* peer);
 void sendPacket(int val, char* packetText, ENetPeer* peer);
 unsigned char* GetExtendedDataPointerFromTankPacket(unsigned char* a1);
 void enet_peerSend(ENetPacket* packet, ENetPeer* peer);
+void sendPacketRaw(void* packet, int packetSize, ENetPeer* peer);
 ENetPacket* onPacketCreate(char* format, ...);
 
 struct GameUpdatePacket { // https://github.com/SrMotion/INZERNAL/blob/main/INZERNAL/sdk/GameUpdatePacket.h
