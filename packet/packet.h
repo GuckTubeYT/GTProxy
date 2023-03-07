@@ -2,6 +2,7 @@
 #define PACKET_H
 
 #include "../enet/include/enet.h"
+#include <stdint.h>
 
 char* GetTextPointerFromPacket(ENetPacket* packet);
 int GetMessageTypeFromPacket(ENetPacket* packet);
