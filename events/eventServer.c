@@ -66,6 +66,22 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             memset(&OnConsoleMessage, 0, sizeof(OnConsoleMessage));
                                             OnPacket.OnConsoleMessage = 1;
                                         }
+                                        else if (isStr(value, "OnSpawn")) {
+                                            OnPacket.OnSpawn = 1;
+                                        }
+                                        break;
+                                    }
+                                    case 1: {
+                                        if (OnPacket.OnSpawn) {
+                                            char** toSplit = strsplit(value, "\n", 0);
+                                            if (isStr(toSplit[11], "type|local")) {
+                                                char** netid = strsplit(toSplit[findArray(toSplit, "netID|")], "|", 0);  
+                                                asprintf(&OnSpawn.LocalNetid, "%d", atoi(netid[1]));
+                                                free(netid);
+                                            }
+                                            free(toSplit);
+                                            OnPacket.OnSpawn = 0;
+                                        }
                                         break;
                                     }
                                     case 4: {

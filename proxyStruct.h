@@ -11,6 +11,7 @@ struct currentInfo_ {
 struct OnPacket_ {
     char OnConsoleMessage;
     char OnSendToServer;
+    char OnSpawn;
 };
 
 struct OnConsoleMessage_ {
@@ -27,10 +28,15 @@ struct OnSendToServer_ {
     char* rawSplit;
 };
 
+struct OnSpawn_ {
+    int LocalNetid;
+};
+
 extern struct currentInfo_ currentInfo;
 extern struct OnPacket_ OnPacket;
 extern struct OnConsoleMessage_ OnConsoleMessage;
 extern struct OnSendToServer_ OnSendToServer;
+extern struct OnSpawn_ OnSpawn;
 
 extern char isSendToServer;
 

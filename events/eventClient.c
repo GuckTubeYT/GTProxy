@@ -80,6 +80,9 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 else if (isStr(command[0], "/helloworld")) {
                     sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
                 }
+                else if (isStr(command[0], "/netid")) {
+                    enet_peerSend(onPacketCreate("ss", "OnConsoleMessage", CatchMessage("My netID is %s", OnSpawn.LocalNetid)), clientPeer);
+                }
                 else if (isStr(command[0], "/testarg")) {
                     if (!command[1]) {
                         sendPacket(3, "action|log\nmsg|Please input argument", clientPeer);
