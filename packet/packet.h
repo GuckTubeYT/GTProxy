@@ -39,6 +39,7 @@ struct GameUpdatePacket { // https://github.com/SrMotion/INZERNAL/blob/main/INZE
     };
     union {
         int32_t netid; //4
+        int32_t gamePacketType;
         int32_t effect_flags_check;
         int32_t object_change_type;
         int32_t particle_emitter_id;
