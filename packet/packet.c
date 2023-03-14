@@ -84,8 +84,8 @@ ENetPacket* onPacketCreate(char* format, ...) {
     struct GameUpdatePacket packet_t;
     memset(&packet_t, 0, 60);
 
-    packet_t.type = 4;
-    packet_t.netid = 1;
+    packet_t.type = NET_MESSAGE_GAME_PACKET;
+    packet_t.gamePacketType = PACKET_CALL_FUNCTION;
     packet_t.item = -1;
     packet_t.int_var = 8;
     totalData -= 61;
@@ -94,7 +94,7 @@ ENetPacket* onPacketCreate(char* format, ...) {
     memcpy(resultData, &packet_t, 60);
 
     resultData[memPos++] = strlen(format);
-    
+
     va_start(args, format);
 
     for (int a = 0; a < strlen(format); a++) {
