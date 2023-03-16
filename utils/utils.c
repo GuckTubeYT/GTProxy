@@ -105,8 +105,11 @@ char* arrayJoin(char** array, char* joinVal) {
     pos = 0, a = 0;
 
     while(array[a]) {
-        sprintf(result + pos, "%s%s", array[a], joinVal);
-        pos += strlen(array[a++]) + valLen;
+	if (array[a][0] == '\0') a++;
+	else {
+            sprintf(result + pos, "%s%s", array[a], joinVal);
+            pos += strlen(array[a++]) + valLen;
+	}
     }
 
     //result[pos - valLen] = '\0';
