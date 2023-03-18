@@ -93,22 +93,26 @@ int findArray(char** array, char* val) {
     return result;
 }
 
-char* arrayJoin(char** array, char* joinVal) {
-    static char* result;
-    int pos = 0, a = 0, valLen = strlen(joinVal);
-
-    while(array[a]) pos += strlen(array[a++]) + valLen;
-
-    result = malloc(pos);
-    memset(result, 0, pos);
-
-    pos = 0, a = 0;
+char* arrayJoin(char** array, char* joinVal, char autoRemove) {
+    int a = 0, totalPos = 0, currentPos = 0;
 
     while(array[a]) {
-	sprintf(result + pos, "%s%s", array[a], joinVal);
-        pos += strlen(array[a++]) + valLen;
+        if (array[a][0] || (!array[a][0] && !autoRemove)) {
+            totalPos += strlen(array[a++]) + strlen(joinVal);
+        } else if (!array[a][0] && autoRemove) a++;
     }
 
+    char* result = malloc(totalPos + 1);
+    a = 0;
+
+    while(array[a]) {
+        if (array[a][0] || (!array[a][0] && !autoRemove)) {
+            sprintf(result + currentPos, "%s%s", array[a], joinVal);
+            currentPos += strlen(array[a++]) + strlen(joinVal);
+        } else if (!array[a][0] && autoRemove) a++;
+    }
+
+    result[currentPos] = '\0';
     //result[pos - valLen] = '\0';
 
     return result;
