@@ -63,10 +63,20 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 loginInfo[findArray(loginInfo, "wk|")] = CatchMessage("wk|%s", currentInfo.wk);
                 loginInfo[findArray(loginInfo, "rid|")] = CatchMessage("rid|%s", currentInfo.rid);
                 loginInfo[findArray(loginInfo, "mac|")] = CatchMessage("mac|%s", currentInfo.mac);
-                char* resultSpoofed = arrayJoin(loginInfo, "\n", 1);
+                loginInfo[findArray(loginInfo, "platformID|")] = "platformID|4";
+                loginInfo[findArray(loginInfo, "category|")] = "category|_0";
+                loginInfo[findArray(loginInfo, "game_version|")] = "game_version|4.22";
+                loginInfo[findArray(loginInfo, "cbits|")] = "cbits|1040";
+                if (findArray(loginInfo, "fz|") != -1) loginInfo[findArray(loginInfo, "fz|")] = "";
+                if (findArray(loginInfo, "klv|") != -1) loginInfo[findArray(loginInfo, "klv|")] = "";
+                if (findArray(loginInfo, "gid|") != -1) loginInfo[findArray(loginInfo, "gid|")] = "";
+                if (findArray(loginInfo, "tr|") != -1) loginInfo[findArray(loginInfo, "tr|")] = "";
+                char* resultSpoofed;
+                asprintf(&resultSpoofed, "%sgid|abcdabcd-abcd-abcd-abcd-abcdabcdabcd\ntr|4322", arrayJoin(loginInfo, "\n", 1));
                 sendPacket(2, resultSpoofed, serverPeer);
                 printf("[Client] Spoofed Login info: %s\n", resultSpoofed);
                 free(loginInfo);
+                free(resultSpoofed);
                 break;
             }
 
