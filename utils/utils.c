@@ -80,6 +80,7 @@ char* CatchMessage(const char *message, ...) {
 
 int findArray(char** array, char* val) {
     int result = 0;
+    char isFound = 0;
     doSearch:
     while(array[result]) {
         for (int a = 0; a < strlen(val); a++) {
@@ -88,9 +89,11 @@ int findArray(char** array, char* val) {
                 goto doSearch;
             }
         }
+        isFound = 1;
         break;
     }
-    return result;
+    if (isFound) return result;
+    else return -1;
 }
 
 char* arrayJoin(char** array, char* joinVal, char autoRemove) {
