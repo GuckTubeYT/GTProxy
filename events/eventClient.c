@@ -101,6 +101,10 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                     }
                     sendPacket(3, CatchMessage("action|log\nmsg|%s", command[1]), clientPeer);
                 }
+                else if (isStr(command[0], "/testdialog")) {
+
+                    enet_peerSend(onPacketCreate("ss", "OnDialogRequest","set_default_color|`o\nadd_label_with_icon|big|`wTest Dialog!``|left|758|\nadd_textbox|Is It Working?|left|\nadd_text_input|yesno||yes|5|\nembed_data|testembed|4\nadd_textbox|`4Warning:``Dont Forget To Star Repo!|left|\nend_dialog|test_dialog|Cancel|OK|"), clientPeer);
+                }
                 else if (isStr(command[0], "/warp")) {
                     if (!command[1]) {
                         sendPacket(3, "action|log\nmsg|Please input world name", clientPeer);
