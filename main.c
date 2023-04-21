@@ -30,6 +30,7 @@ int main() {
     currentInfo.wk = generateHex(32);
     currentInfo.rid = generateHex(32);
     currentInfo.mac = generateHex(0);
+    currentInfo.gid = generateGID();
 
     enet_initialize();
 
@@ -106,6 +107,7 @@ int main() {
     free(currentInfo.wk);
     free(currentInfo.rid);
     free(currentInfo.mac);
+    free(currentInfo.gid);
     if (currentInfo.meta) free(currentInfo.meta);
 
     if (doLoop) {
