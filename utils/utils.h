@@ -7,6 +7,7 @@ char* CatchMessage(const char *message, ...);
 int findArray(char** array, char* val);
 char* arrayJoin(char** array, char* joinVal, char autoRemove);
 char* generateHex(int len);
+char* generateGID();
 int findStr(char* str, char* toFind);
 char isStr(unsigned char* str, unsigned char* toFind);
 char includeStr(const unsigned char* str, const unsigned char* toFind, int len);

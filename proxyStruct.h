@@ -6,6 +6,7 @@ struct currentInfo_ {
     char* wk;
     char* rid;
     char* mac;
+    char* gid;
 };
 
 struct OnPacket_ {

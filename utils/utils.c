@@ -122,7 +122,7 @@ char* arrayJoin(char** array, char* joinVal, char autoRemove) {
 }
 
 char* generateHex(int len) {
-    char* result = malloc(len ? len + 1 : 17 + 1);
+    char* result = malloc(len ? len + 1 : 18);
     char* hexVal = "0123456789ABCDEF";
     if (!len) {
         for (int a = 0, b = 0; a < 17; a++) {
@@ -134,6 +134,19 @@ char* generateHex(int len) {
         for (int a = 0; a < len; a++) result[a] = hexVal[rand() % 16];
         result[len] = '\0';
     }
+
+    return result;
+}
+
+char* generateGID() {
+    char* result = malloc(37);
+    char* hexVal = "0123456789abcdef";
+    for (int a = 0; a < 36; a++) {
+        if (a == 8 || a == 13 || a == 18 || a == 23) result[a] = '-';
+        else result[a] = tolower(hexVal[rand() % 16]);
+    }
+
+    result[36] = '\0';
 
     return result;
 }
