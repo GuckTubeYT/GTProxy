@@ -58,25 +58,22 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
             if (includeStr(packetText, "requestedName|", event.packet->dataLength - 5)) {
                 char** loginInfo = strsplit(packetText, "\n", 0);
-                printf("[GTProxy] Spoofing Login info...\n");
+                char* klvGen = generateKlv(loginInfo[findArray(loginInfo, "game_version|")] + 13, loginInfo[findArray(loginInfo, "hash|")] + 5, currentInfo.rid, loginInfo[findArray(loginInfo, "protocol|")] + 9);
+
                 loginInfo[findArray(loginInfo, "meta|")] = CatchMessage("meta|%s", currentInfo.meta);
                 loginInfo[findArray(loginInfo, "wk|")] = CatchMessage("wk|%s", currentInfo.wk);
                 loginInfo[findArray(loginInfo, "rid|")] = CatchMessage("rid|%s", currentInfo.rid);
                 loginInfo[findArray(loginInfo, "mac|")] = CatchMessage("mac|%s", currentInfo.mac);
-                loginInfo[findArray(loginInfo, "platformID|")] = "platformID|4";
-                loginInfo[findArray(loginInfo, "category|")] = "category|_0";
-                loginInfo[findArray(loginInfo, "game_version|")] = "game_version|4.23";
-                loginInfo[findArray(loginInfo, "cbits|")] = "cbits|1040";
-                if (findArray(loginInfo, "fz|") != -1) loginInfo[findArray(loginInfo, "fz|")] = "";
-                if (findArray(loginInfo, "klv|") != -1) loginInfo[findArray(loginInfo, "klv|")] = "";
-                if (findArray(loginInfo, "gid|") != -1) loginInfo[findArray(loginInfo, "gid|")] = "";
-                if (findArray(loginInfo, "tr|") != -1) loginInfo[findArray(loginInfo, "tr|")] = "";
-                char* resultSpoofed;
-                asprintf(&resultSpoofed, "%sgid|%s\ntr|4322", arrayJoin(loginInfo, "\n", 1), currentInfo.gid);
-                sendPacket(2, resultSpoofed, serverPeer);
+                loginInfo[findArray(loginInfo, "klv|")] = CatchMessage("klv|%s", klvGen);
+
+                char* resultSpoofed = arrayJoin(loginInfo, "\n", 1);
                 printf("[Client] Spoofed Login info: %s\n", resultSpoofed);
+                sendPacket(2, resultSpoofed, serverPeer);
+
                 free(loginInfo);
                 free(resultSpoofed);
+                free(klvGen);
+
                 break;
             }
 

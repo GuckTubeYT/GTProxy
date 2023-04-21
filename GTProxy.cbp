@@ -86,6 +86,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="mainVar.h" />
+		<Unit filename="md5/md5.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="md5/md5.h" />
 		<Unit filename="packet/packet.c">
 			<Option compilerVar="CC" />
 		</Unit>
