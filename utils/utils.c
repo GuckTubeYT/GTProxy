@@ -157,7 +157,7 @@ char* generateGID() {
 char* generateKlv(char* gameVersion, char* hash, char* rid, char* protocol) {
     uint8_t md5Data[16];
     md5String(CatchMessage("0b02ea1d8610bab98fbc1d574e5156f3%sb414b94c3279a2099bd817ba3a025cfc%sbf102589b28a8cc3017cba9aec1306f5%sdded9b27d5ce7f8c8ceb1c9ba25f378d%s", gameVersion, hash, rid, protocol), md5Data);
-    char* result = malloc(100);
+    char* result = malloc(33);
     for (int a = 0, b = 0; a < 16; a++) {
         sprintf(result + b, "%02X", md5Data[a]);
         b += 2;
