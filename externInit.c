@@ -20,6 +20,7 @@ struct OnPacket_ OnPacket;
 struct OnConsoleMessage_ OnConsoleMessage;
 struct OnSendToServer_ OnSendToServer;
 struct OnSpawn_ OnSpawn;
+struct userConfig_ userConfig;
 
 struct HTTPInfo info;
 ENetHost* realServer;

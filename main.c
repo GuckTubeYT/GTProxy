@@ -19,7 +19,69 @@
 #include "mainVar.h"
 #include "proxyStruct.h"
 
+void loadConfig() {
+    FILE* fp = fopen("config.conf", "rb");
+    if (!fp) {
+        fclose(fp);
+        printf("[GTProxy] config.conf not found! Creating...\n");
+        fp = fopen("config.conf", "wb");
+
+        userConfig.usingServerData = 1;
+        userConfig.serverDataIP = "2.17.198.162";
+        userConfig.manualIP = "127.0.0.1";
+        userConfig.manualPort = 17091;
+        asprintf(&currentInfo.meta, "localhost");
+        userConfig.usingNewPacket = 1;
+
+        fprintf(fp, "usingServerData=1\nserverDataIP=2.17.198.162\nmanualIP=127.0.0.1\nmanualPort=17091\nmanualMeta=localhost\nusingNewPacket=1");
+        fclose(fp);
+        printf("[GTProxy] config.conf has been created!\n");
+    } else {
+        fseek(fp, 0, SEEK_END);
+        int fsize = ftell(fp);
+        fseek(fp, 0, SEEK_SET);
+
+        char* data = malloc(fsize + 1);
+        fread(data, fsize, 1, fp);
+        fclose(fp);
+        data[fsize] = '\0';
+
+        char** split = strsplit(data, "\n", 0);
+        free(data);
+
+        int a = 0;
+        while(split[a]) {
+            if (split[a][0] == '#') continue;
+            
+            char** split2 = strsplit(split[a++], "=", 0);
+            if (isStr(split2[0], "usingServerData")) {
+                if (split2[1][0] == '1') userConfig.usingServerData = 1;
+                else userConfig.usingServerData = 0;
+            }
+
+            if (isStr(split2[0], "serverDataIP")) asprintf(&userConfig.serverDataIP, "%s", split2[1]);
+            if (isStr(split2[0], "manualIP")) asprintf(&userConfig.manualIP, "%s", split2[1]);
+            if (isStr(split2[0], "manualPort")) userConfig.manualPort = atoi(split2[1]);
+            if (isStr(split2[0], "manualMeta")) asprintf(&currentInfo.meta, "%s", split2[1]);
+
+            if (isStr(split2[0], "usingNewPacket")) {
+                if (split2[1][0] == '1') userConfig.usingNewPacket = 1;
+                else userConfig.usingNewPacket = 0;
+            }
+
+            free(split2);
+        }
+
+        free(split);
+    }
+
+}
+
 int main() {
+    if (!isLoop) {
+        loadConfig();
+    }
+
     isLoop = 1;
     doLoop = 0;
     srand(time(NULL));
@@ -106,7 +168,7 @@ int main() {
     free(currentInfo.wk);
     free(currentInfo.rid);
     free(currentInfo.mac);
-    if (currentInfo.meta) free(currentInfo.meta);
+    if (currentInfo.meta && userConfig.usingServerData) free(currentInfo.meta);
 
     if (doLoop) {
         isLoop = 1;

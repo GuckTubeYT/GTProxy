@@ -17,7 +17,7 @@ void clientConnect() {
 
         realServer = enet_host_create(NULL, 1, 2, 0, 0);
         realServer->checksum = enet_crc32;
-        realServer->usingNewPacket = 1;
+        realServer->usingNewPacket = userConfig.usingNewPacket;
         enet_host_compress_with_range_coder(realServer);
         enet_address_set_host(&realAddress, OnSendToServer.serverAddress);
         realAddress.port = OnSendToServer.port;
@@ -30,24 +30,32 @@ void clientConnect() {
     } else {
         printf("[Client] Client connected into proxy\n[Client] Connecting to Growtopia Server...\n");
 
-        info = HTTPSClient("2.17.198.162");
-
-        char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
-        char** server = strsplit(arr[0], "|", 0);
-        char** port = strsplit(arr[1], "|", 0);
-        char** meta = strsplit(arr[14], "|", 0);
-
         memset(&realAddress, 0, sizeof(ENetAddress));
-        enet_address_set_host(&realAddress, server[1]);
-        realAddress.port = atoi(port[1]);
-        realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
-        if (currentInfo.meta) free(currentInfo.meta);
-        asprintf(&currentInfo.meta, "%s", meta[1]);
+        if (userConfig.usingServerData) {
+            info = HTTPSClient(userConfig.serverDataIP);
 
-        free(arr);
-        free(server);
-        free(port);
-        free(meta);
+            char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
+            char** server = strsplit(arr[0], "|", 0);
+            char** port = strsplit(arr[1], "|", 0);
+            char** meta = strsplit(arr[14], "|", 0);
+
+            enet_address_set_host(&realAddress, server[1]);
+            realAddress.port = atoi(port[1]);
+            realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
+            if (currentInfo.meta) free(currentInfo.meta);
+            asprintf(&currentInfo.meta, "%s", meta[1]);
+
+            free(arr);
+            free(server);
+            free(port);
+            free(meta);
+        }
+        else {
+            enet_address_set_host(&realAddress, userConfig.manualIP);
+            realAddress.port = userConfig.manualPort;
+            realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
+        }
+
     }
 }
 

@@ -1,6 +1,14 @@
 #ifndef PROXYSTRUCT_H
 #define PROXYSTRUCT_H
 
+struct userConfig_ {
+    char usingServerData;
+    char* serverDataIP;
+    char* manualIP;
+    int manualPort;
+    char usingNewPacket;
+};
+
 struct currentInfo_ {
     char* meta;
     char* wk;
@@ -38,6 +46,7 @@ extern struct OnPacket_ OnPacket;
 extern struct OnConsoleMessage_ OnConsoleMessage;
 extern struct OnSendToServer_ OnSendToServer;
 extern struct OnSpawn_ OnSpawn;
+extern struct userConfig_ userConfig;
 
 extern char isSendToServer;
 
