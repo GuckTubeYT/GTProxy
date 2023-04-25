@@ -52,7 +52,7 @@ void loadConfig() {
         int a = 0;
         while(split[a]) {
             if (split[a][0] == '#') continue;
-            
+
             char** split2 = strsplit(split[a++], "=", 0);
             if (isStr(split2[0], "usingServerData")) {
                 if (split2[1][0] == '1') userConfig.usingServerData = 1;
@@ -68,7 +68,6 @@ void loadConfig() {
                 if (split2[1][0] == '1') userConfig.usingNewPacket = 1;
                 else userConfig.usingNewPacket = 0;
             }
-
             free(split2);
         }
 
@@ -104,7 +103,7 @@ int main() {
 
     realServer = enet_host_create(NULL, 1, 2, 0, 0);
     realServer->checksum = enet_crc32;
-    realServer->usingNewPacket = 1;
+    realServer->usingNewPacket = userConfig.usingNewPacket;
     enet_host_compress_with_range_coder(realServer);
 
     if (!HTTPAlreadyOn) {
