@@ -33,7 +33,7 @@ void clientConnect() {
         memset(&realAddress, 0, sizeof(ENetAddress));
         if (userConfig.usingServerData) {
             info = HTTPSClient(userConfig.serverDataIP);
-            printf("%s\n", info.buffer);
+            
             char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
             char** server = strsplit(arr[0], "|", 0);
             char** port = strsplit(arr[1], "|", 0);
