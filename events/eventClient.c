@@ -33,7 +33,7 @@ void clientConnect() {
         memset(&realAddress, 0, sizeof(ENetAddress));
         if (userConfig.usingServerData) {
             info = HTTPSClient(userConfig.serverDataIP);
-
+            printf("%s\n", info.buffer);
             char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
             char** server = strsplit(arr[0], "|", 0);
             char** port = strsplit(arr[1], "|", 0);
@@ -69,7 +69,8 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 char** loginInfo = strsplit(packetText, "\n", 0);
                 char* klvGen = generateKlv(loginInfo[findArray(loginInfo, "game_version|")] + 13, loginInfo[findArray(loginInfo, "hash|")] + 5, currentInfo.rid, loginInfo[findArray(loginInfo, "protocol|")] + 9);
 
-                loginInfo[findArray(loginInfo, "meta|")] = CatchMessage("meta|%s", currentInfo.meta);
+                if (userConfig.usingServerData) loginInfo[findArray(loginInfo, "meta|")] = CatchMessage("meta|%s", currentInfo.meta);
+                else loginInfo[findArray(loginInfo, "meta|")] = CatchMessage("meta|%s", userConfig.manualMeta);
                 loginInfo[findArray(loginInfo, "wk|")] = CatchMessage("wk|%s", currentInfo.wk);
                 loginInfo[findArray(loginInfo, "rid|")] = CatchMessage("rid|%s", currentInfo.rid);
                 loginInfo[findArray(loginInfo, "mac|")] = CatchMessage("mac|%s", currentInfo.mac);

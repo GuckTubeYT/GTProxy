@@ -5,6 +5,7 @@ struct userConfig_ {
     char usingServerData;
     char* serverDataIP;
     char* manualIP;
+    char* manualMeta;
     int manualPort;
     char usingNewPacket;
 };

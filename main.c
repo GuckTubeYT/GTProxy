@@ -30,7 +30,7 @@ void loadConfig() {
         userConfig.serverDataIP = "2.17.198.162";
         userConfig.manualIP = "127.0.0.1";
         userConfig.manualPort = 17091;
-        asprintf(&currentInfo.meta, "localhost");
+        asprintf(&userConfig.manualMeta, "localhost");
         userConfig.usingNewPacket = 1;
 
         fprintf(fp, "usingServerData=1\nserverDataIP=2.17.198.162\nmanualIP=127.0.0.1\nmanualPort=17091\nmanualMeta=localhost\nusingNewPacket=1");
@@ -62,7 +62,7 @@ void loadConfig() {
             if (isStr(split2[0], "serverDataIP")) asprintf(&userConfig.serverDataIP, "%s", split2[1]);
             if (isStr(split2[0], "manualIP")) asprintf(&userConfig.manualIP, "%s", split2[1]);
             if (isStr(split2[0], "manualPort")) userConfig.manualPort = atoi(split2[1]);
-            if (isStr(split2[0], "manualMeta")) asprintf(&currentInfo.meta, "%s", split2[1]);
+            if (isStr(split2[0], "manualMeta")) asprintf(&userConfig.manualMeta, "%s", split2[1]);
 
             if (isStr(split2[0], "usingNewPacket")) {
                 if (split2[1][0] == '1') userConfig.usingNewPacket = 1;
@@ -167,7 +167,7 @@ int main() {
     free(currentInfo.wk);
     free(currentInfo.rid);
     free(currentInfo.mac);
-    if (currentInfo.meta && userConfig.usingServerData) free(currentInfo.meta);
+    if (currentInfo.meta) free(currentInfo.meta);
 
     if (doLoop) {
         isLoop = 1;
