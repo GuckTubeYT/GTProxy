@@ -51,6 +51,7 @@ void clientConnect() {
             free(meta);
         }
         else {
+            printf("[Client] Client connected into proxy\n[Client] Connecting to Custom Growtopia Server...\n");
             enet_address_set_host(&realAddress, userConfig.manualIP);
             realAddress.port = userConfig.manualPort;
             realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
