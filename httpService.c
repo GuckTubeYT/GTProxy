@@ -15,6 +15,7 @@
 #include "httpService.h"
 #include "tlse/tlse.h"
 #include "utils/utils.h"
+#include "proxyStruct.h"
 
 const unsigned char* certPem = "-----BEGIN CERTIFICATE-----\n\
 MIIDeDCCAmCgAwIBAgIULbUEh/rroH5AIbcdBbMNOGt3uiQwDQYJKoZIhvcNAQEL\n\
@@ -164,13 +165,13 @@ void* HTTPSServer(void* unused) {
 
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons(443);
+    server.sin_port = htons(userConfig.httpsPort);
 
     int enable = 1;
     setsockopt(socket_desc, SOL_SOCKET, SO_REUSEADDR, &enable, 4);
 
     if (bind(socket_desc, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        printf("[HTTPService Server] Error: bind failed\n");
+        printf("[HTTPService Server] Error: bind failed! If you are not a root user, please change it to 8080\n");
         exit(1);
     }
 

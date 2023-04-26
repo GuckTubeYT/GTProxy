@@ -8,6 +8,7 @@ struct userConfig_ {
     char* manualMeta;
     int manualPort;
     char usingNewPacket;
+    short httpsPort;
 };
 
 struct currentInfo_ {
