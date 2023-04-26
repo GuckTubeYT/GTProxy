@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <unistd.h>
 #ifdef _WIN32
     #include <winsock2.h>
     #define socklen_t int
