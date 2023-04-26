@@ -7,6 +7,6 @@ struct HTTPInfo {
 };
 
 struct HTTPInfo HTTPSClient(const char* website);
-void HTTPSServer(void* unused);
+void* HTTPSServer(void* unused);
 
 #endif // HTTPSERVICE_H_INCLUDED
