@@ -31,7 +31,7 @@ void loadConfig() {
         userConfig.manualPort = 17091;
         asprintf(&userConfig.manualMeta, "localhost");
         userConfig.usingNewPacket = 1;
-        userConfig.httpsPort = 80;
+        userConfig.httpsPort = 443;
 
         fprintf(fp, "usingServerData=1\nserverDataIP=2.17.198.162\nmanualIP=127.0.0.1\nmanualPort=17091\nmanualMeta=localhost\nusingNewPacket=1\nhttpsPort=80");
         fclose(fp);
