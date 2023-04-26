@@ -10,6 +10,7 @@
     #include <netdb.h>
 #endif
 #include <string.h>
+#include <unistd.h>
 
 #include "httpService.h"
 #include "tlse/tlse.h"
@@ -128,7 +129,7 @@ struct HTTPInfo HTTPSClient(const char* website) {
         tls_consume_stream(context, client_message, read_size, NULL);
         send_pending(sockfd, context);
         if (tls_established(context)) {
-            const char *request = "POST /growtopia/server_data.php HTTP/1.1\r\nAccept-Encoding: gzip, deflate, br\r\nAccept: */*\r\nUser-Agent: UbiServices_SDK_2019.Release.27_PC64_unicode_static\r\nHost: www.growtopia1.com\r\nConnection: close\r\nContent-Length: 0\r\n\r\n";
+            const char *request = "POST /growtopia/server_data.php HTTP/1.1\r\nUser-Agent: UbiServices_SDK_2019.Release.27_PC64_unicode_static\r\nHost: www.growtopia1.com\r\nAccept: */*\r\nConnection: close\r\ncontent-length: 0\r\n\r\n";
             if (!tls_make_ktls(context, sockfd)) send(sockfd, request, strlen(request), 0);
             else {
                 tls_write(context, (unsigned char *)request, strlen(request));
