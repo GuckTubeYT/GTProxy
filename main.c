@@ -22,7 +22,6 @@
 void loadConfig() {
     FILE* fp = fopen("config.conf", "rb");
     if (!fp) {
-        fclose(fp);
         printf("[GTProxy] config.conf not found! Creating...\n");
         fp = fopen("config.conf", "wb");
 
