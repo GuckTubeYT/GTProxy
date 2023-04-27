@@ -4,7 +4,7 @@ A Growtopia Proxy to get packet from Client and Server, no shadowban
 Now, you can look all information about GTProxy on [Wiki](https://github.com/GuckTubeYT/GTProxy/wiki)
 # TODO List
 - [X] Add user config
-- [X] Support Growtopia Private Server
+- [X] Support Growtopia Private Server (config.conf)
 - [X] Making Custom Command
 # Credits
 - Thanks to all of my friend for helping me a lot of making GTProxy
