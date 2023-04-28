@@ -33,7 +33,7 @@ void loadConfig() {
         userConfig.usingNewPacket = 1;
         userConfig.httpsPort = 443;
 
-        fprintf(fp, "usingServerData=1\nserverDataIP=2.17.198.162\nmanualIP=127.0.0.1\nmanualPort=17091\nmanualMeta=localhost\nusingNewPacket=1\nhttpsPort=80");
+        fprintf(fp, "usingServerData=1\nserverDataIP=2.17.198.162\nmanualIP=127.0.0.1\nmanualPort=17091\nmanualMeta=localhost\nusingNewPacket=1\nhttpsPort=443");
         fclose(fp);
         printf("[GTProxy] config.conf has been created!\n");
     } else {
