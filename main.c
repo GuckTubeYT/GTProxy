@@ -81,13 +81,14 @@ void loadConfig() {
 int main() {
     if (!isLoop) {
         loadConfig();
-        memset(&currentInfo, 0, sizeof(currentInfo));
     }
 
     isLoop = 1;
     doLoop = 0;
     srand(time(NULL));
-
+    
+    memset(&currentInfo, 0, sizeof(currentInfo));
+    
     currentInfo.wk = generateHex(32);
     currentInfo.rid = generateHex(32);
     currentInfo.deviceID = generateHex(32);
@@ -171,7 +172,6 @@ int main() {
         free(currentInfo.meta);
         currentInfo.isMetaMalloc = 0;
     }
-
 
     free(currentInfo.wk);
     free(currentInfo.rid);
