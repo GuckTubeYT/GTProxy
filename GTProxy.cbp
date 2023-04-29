@@ -99,7 +99,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="tlse/tlse.h" />
-		<Unit filename="utils/switch.h" />
 		<Unit filename="utils/utils.c">
 			<Option compilerVar="CC" />
 		</Unit>

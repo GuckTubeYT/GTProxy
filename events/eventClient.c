@@ -33,7 +33,7 @@ void clientConnect() {
         memset(&realAddress, 0, sizeof(ENetAddress));
         if (userConfig.usingServerData) {
             info = HTTPSClient(userConfig.serverDataIP);
-            
+
             char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
             char** server = strsplit(arr[0], "|", 0);
             char** port = strsplit(arr[1], "|", 0);
@@ -42,8 +42,9 @@ void clientConnect() {
             enet_address_set_host(&realAddress, server[1]);
             realAddress.port = atoi(port[1]);
             realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
-            if (currentInfo.meta) free(currentInfo.meta);
+            if (currentInfo.isMetaMalloc) free(currentInfo.meta);
             asprintf(&currentInfo.meta, "%s", meta[1]);
+            currentInfo.isMetaMalloc = 1;
 
             free(arr);
             free(server);
@@ -69,14 +70,17 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 char** loginInfo = strsplit(packetText, "\n", 0);
                 char* klvGen;
 
-                if (findArray(loginInfo, "gid|") == -1) klvGen = generateKlv(loginInfo[findArray(loginInfo, "game_version|")] + 13, loginInfo[findArray(loginInfo, "hash|")] + 5, currentInfo.rid, loginInfo[findArray(loginInfo, "protocol|")] + 9, 0);
-                else klvGen = generateKlv(loginInfo[findArray(loginInfo, "game_version|")] + 13, loginInfo[findArray(loginInfo, "hash|")] + 5, currentInfo.rid, loginInfo[findArray(loginInfo, "protocol|")] + 9, 1);
-
                 if (userConfig.usingServerData) loginInfo[findArray(loginInfo, "meta|")] = CatchMessage("meta|%s", currentInfo.meta);
                 else loginInfo[findArray(loginInfo, "meta|")] = CatchMessage("meta|%s", userConfig.manualMeta);
                 loginInfo[findArray(loginInfo, "wk|")] = CatchMessage("wk|%s", currentInfo.wk);
                 loginInfo[findArray(loginInfo, "rid|")] = CatchMessage("rid|%s", currentInfo.rid);
                 loginInfo[findArray(loginInfo, "mac|")] = CatchMessage("mac|%s", currentInfo.mac);
+                loginInfo[findArray(loginInfo, "hash|")] = CatchMessage("hash|%d", protonHash(CatchMessage("%sRT", currentInfo.mac)));
+                loginInfo[findArray(loginInfo, "hash2|")] = CatchMessage("hash2|%d", protonHash(CatchMessage("%sRT", currentInfo.deviceID)));
+
+                if (findArray(loginInfo, "gid|") == -1) klvGen = generateKlv(loginInfo[findArray(loginInfo, "game_version|")] + 13, loginInfo[findArray(loginInfo, "hash|")] + 5, currentInfo.rid, loginInfo[findArray(loginInfo, "protocol|")] + 9, 0);
+                else klvGen = generateKlv(loginInfo[findArray(loginInfo, "game_version|")] + 13, loginInfo[findArray(loginInfo, "hash|")] + 5, currentInfo.rid, loginInfo[findArray(loginInfo, "protocol|")] + 9, 1);
+
                 loginInfo[findArray(loginInfo, "klv|")] = CatchMessage("klv|%s", klvGen);
 
                 char* resultSpoofed = arrayJoin(loginInfo, "\n", 1);

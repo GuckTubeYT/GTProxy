@@ -81,18 +81,19 @@ void loadConfig() {
 int main() {
     if (!isLoop) {
         loadConfig();
+        memset(&currentInfo, 0, sizeof(currentInfo));
     }
 
     isLoop = 1;
     doLoop = 0;
     srand(time(NULL));
 
-    memset(&currentInfo, 0, sizeof(currentInfo));
-    memset(&OnPacket, 0, sizeof(OnPacket));
-
     currentInfo.wk = generateHex(32);
     currentInfo.rid = generateHex(32);
+    currentInfo.deviceID = generateHex(32);
     currentInfo.mac = generateHex(0);
+
+    memset(&OnPacket, 0, sizeof(OnPacket));
 
     enet_initialize();
 
@@ -166,10 +167,16 @@ int main() {
 
     enet_deinitialize();
 
+    if (currentInfo.isMetaMalloc) {
+        free(currentInfo.meta);
+        currentInfo.isMetaMalloc = 0;
+    }
+
+
     free(currentInfo.wk);
     free(currentInfo.rid);
+    free(currentInfo.deviceID);
     free(currentInfo.mac);
-    if (currentInfo.meta) free(currentInfo.meta);
 
     if (doLoop) {
         isLoop = 1;

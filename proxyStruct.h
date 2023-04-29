@@ -13,10 +13,12 @@ struct userConfig_ {
 
 struct currentInfo_ {
     char* meta;
+    char isMetaMalloc;
     char* wk;
     char* rid;
     char* mac;
     char* gid;
+    char* deviceID;
 };
 
 struct OnPacket_ {

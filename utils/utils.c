@@ -193,3 +193,10 @@ char includeStr(const unsigned char* str, const unsigned char* toFind, int len) 
 	}
 	return 0;
 }
+
+int32_t protonHash(const char* data) {
+    int hash = 0x55555555;
+    while(*data) hash = (hash >> 27) + (hash << 5) + *data++;
+
+    return hash;
+}
