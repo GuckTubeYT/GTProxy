@@ -35,21 +35,15 @@ void clientConnect() {
             info = HTTPSClient(userConfig.serverDataIP);
 
             char** arr = strsplit(info.buffer + (findStr(info.buffer, "server|") - 7), "\n", 0);
-            char** server = strsplit(arr[0], "|", 0);
-            char** port = strsplit(arr[1], "|", 0);
-            char** meta = strsplit(arr[14], "|", 0);
 
-            enet_address_set_host(&realAddress, server[1]);
-            realAddress.port = atoi(port[1]);
+            enet_address_set_host(&realAddress, arr[findArray(arr, "server|")] + 7);
+            realAddress.port = atoi(arr[findArray(arr, "port|")] + 5);
             realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
             if (currentInfo.isMetaMalloc) free(currentInfo.meta);
-            asprintf(&currentInfo.meta, "%s", meta[1]);
+            asprintf(&currentInfo.meta, "%s", arr[findArray(arr, "meta|")] + 5);
             currentInfo.isMetaMalloc = 1;
 
             free(arr);
-            free(server);
-            free(port);
-            free(meta);
         }
         else {
             printf("[Client] Client connected into proxy\n[Client] Connecting to Custom Growtopia Server...\n");
