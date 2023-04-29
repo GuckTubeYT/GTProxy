@@ -119,7 +119,7 @@ struct HTTPInfo HTTPSClient(const char* website) {
         exit(0);
     }
 
-    struct TLSContext *context = tls_create_context(0, TLS_V13);
+    struct TLSContext *context = tls_create_context(0, TLS_V12);
 
     tls_make_exportable(context, 1);
     tls_client_connect(context);
