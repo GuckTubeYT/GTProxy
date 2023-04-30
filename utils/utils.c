@@ -91,7 +91,7 @@ char* arrayJoin(char** array, char* joinVal, char autoRemove) {
 }
 
 char* generateHex(int len) {
-    char* result = malloc(len ? len + 1 : 18);
+    char* result = malloc(len ? (len * 2) + 1 : 18);
     char* hexVal = "0123456789ABCDEF";
     if (!len) {
         for (int a = 0, b = 0; a < 17; a++) {
@@ -100,8 +100,8 @@ char* generateHex(int len) {
         }
         result[17] = '\0';
     } else {
-        for (int a = 0; a < len; a++) result[a] = hexVal[rand() % 16];
-        result[len] = '\0';
+        for (int a = 0; a < len * 2; a++) result[a] = hexVal[rand() % 16];
+        result[len * 2] = '\0';
     }
 
     return result;
