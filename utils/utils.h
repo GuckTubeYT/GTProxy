@@ -12,7 +12,7 @@ char* generateHex(int len);
 char* generateGID();
 char* generateKlv(char* gameVersion, char* hash, char* rid, char* protocol, char isAndroid);
 int findStr(char* str, char* toFind);
-char isStr(unsigned char* str, unsigned char* toFind);
+char isStr(unsigned char* str, unsigned char* toFind, char isEndLine);
 char includeStr(const unsigned char* str, const unsigned char* toFind, int len);
 int32_t protonHash(const char* data);
 

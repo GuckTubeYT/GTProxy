@@ -176,11 +176,11 @@ int findStr(char* str, char* toFind) {
     return 0;
 }
 
-char isStr(unsigned char* str, unsigned char* toFind) {
+char isStr(unsigned char* str, unsigned char* toFind, char isEndLine) {
     for (int a = 0; a < strlen(toFind); a++) {
         if (str[a] != toFind[a]) return 0;
     }
-    if (str[strlen(toFind)] != '\0') return 0;
+    if (str[strlen(toFind)] != '\0' && isEndLine) return 0;
     return 1;
 }
 

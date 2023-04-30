@@ -58,15 +58,15 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 
                                 switch(index) {
                                     case 0: {
-                                        if (isStr(value, "OnSendToServer")) {
+                                        if (isStr(value, "OnSendToServer", 1)) {
                                             memset(&OnSendToServer, 0, sizeof(OnSendToServer));
                                             OnPacket.OnSendToServer = 1;
                                         }
-                                        else if (isStr(value, "OnConsoleMessage")) {
+                                        else if (isStr(value, "OnConsoleMessage", 1)) {
                                             memset(&OnConsoleMessage, 0, sizeof(OnConsoleMessage));
                                             OnPacket.OnConsoleMessage = 1;
                                         }
-                                        else if (isStr(value, "OnSpawn")) {
+                                        else if (isStr(value, "OnSpawn", 1)) {
                                             OnPacket.OnSpawn = 1;
                                         }
                                         break;
@@ -74,8 +74,8 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                     case 1: {
                                         if (OnPacket.OnSpawn) {
                                             char** toSplit = strsplit(value, "\n", 0);
-                                            if (isStr(toSplit[11], "type|local")) {
-                                                char** netid = strsplit(toSplit[findArray(toSplit, "netID|")], "|", 0);  
+                                            if (isStr(toSplit[11], "type|local", 1)) {
+                                                char** netid = strsplit(toSplit[findArray(toSplit, "netID|")], "|", 0);
                                                 asprintf(&OnSpawn.LocalNetid, "%d", atoi(netid[1]));
                                                 free(netid);
                                             }

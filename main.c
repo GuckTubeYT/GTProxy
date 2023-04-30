@@ -54,21 +54,21 @@ void loadConfig() {
             if (split[a][0] == '#') continue;
 
             char** split2 = strsplit(split[a++], "=", 0);
-            if (isStr(split2[0], "usingServerData")) {
+            if (isStr(split2[0], "usingServerData", 1)) {
                 if (split2[1][0] == '1') userConfig.usingServerData = 1;
                 else userConfig.usingServerData = 0;
             }
 
-            if (isStr(split2[0], "serverDataIP")) asprintf(&userConfig.serverDataIP, "%s", split2[1]);
-            if (isStr(split2[0], "manualIP")) asprintf(&userConfig.manualIP, "%s", split2[1]);
-            if (isStr(split2[0], "manualPort")) userConfig.manualPort = atoi(split2[1]);
-            if (isStr(split2[0], "manualMeta")) asprintf(&userConfig.manualMeta, "%s", split2[1]);
+            if (isStr(split2[0], "serverDataIP", 1)) asprintf(&userConfig.serverDataIP, "%s", split2[1]);
+            if (isStr(split2[0], "manualIP", 1)) asprintf(&userConfig.manualIP, "%s", split2[1]);
+            if (isStr(split2[0], "manualPort", 1)) userConfig.manualPort = atoi(split2[1]);
+            if (isStr(split2[0], "manualMeta", 1)) asprintf(&userConfig.manualMeta, "%s", split2[1]);
 
-            if (isStr(split2[0], "usingNewPacket")) {
+            if (isStr(split2[0], "usingNewPacket", 1)) {
                 if (split2[1][0] == '1') userConfig.usingNewPacket = 1;
                 else userConfig.usingNewPacket = 0;
             }
-            if (isStr(split2[0], "httpsPort")) userConfig.httpsPort = atoi(split2[1]);
+            if (isStr(split2[0], "httpsPort", 1)) userConfig.httpsPort = atoi(split2[1]);
 
             free(split2);
         }
@@ -86,9 +86,9 @@ int main() {
     isLoop = 1;
     doLoop = 0;
     srand(time(NULL));
-    
+
     memset(&currentInfo, 0, sizeof(currentInfo));
-    
+
     currentInfo.wk = generateHex(32);
     currentInfo.rid = generateHex(32);
     currentInfo.deviceID = generateHex(32);
