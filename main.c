@@ -89,9 +89,9 @@ int main() {
 
     memset(&currentInfo, 0, sizeof(currentInfo));
 
-    currentInfo.wk = generateHex(32);
-    currentInfo.rid = generateHex(32);
-    currentInfo.deviceID = generateHex(32);
+    currentInfo.wk = generateHex(16);
+    currentInfo.rid = generateHex(16);
+    currentInfo.deviceID = generateHex(16);
     currentInfo.mac = generateHex(0);
 
     memset(&OnPacket, 0, sizeof(OnPacket));
