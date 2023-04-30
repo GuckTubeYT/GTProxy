@@ -179,6 +179,7 @@ int main() {
     free(currentInfo.mac);
 
     if (doLoop) {
+        currentInfo.isLogin = 0;
         isLoop = 1;
         doLoop = 0;
         main();
