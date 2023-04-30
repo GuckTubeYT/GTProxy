@@ -19,6 +19,7 @@ struct currentInfo_ {
     char* mac;
     char* gid;
     char* deviceID;
+    char isLogin;
 };
 
 struct OnPacket_ {
