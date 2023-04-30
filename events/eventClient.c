@@ -60,7 +60,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
         case 2: {
             char* packetText = GetTextPointerFromPacket(event.packet);
 
-            if (includeStr(packetText, "requestedName|", event.packet->dataLength - 5)) {
+            if (!currentInfo.isLogin) {
                 char** loginInfo = strsplit(packetText, "\n", 0);
                 char* klvGen;
 
@@ -84,7 +84,9 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 free(loginInfo);
                 free(resultSpoofed);
                 free(klvGen);
-
+                
+                currentInfo.isLogin = 1;
+                
                 break;
             }
 
