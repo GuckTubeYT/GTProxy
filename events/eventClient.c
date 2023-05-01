@@ -135,6 +135,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 if (isStr(split[1], "dialog_name|test_dialog", 1)) {
                     sendPacket(3, CatchMessage("action|log\nmsg|Its work!\nwith user input: %s\n", split[3] + 6), clientPeer);
                 }
+                else enet_peerSend(event.packet, serverPeer);
 
                 free(split);
                 break;
