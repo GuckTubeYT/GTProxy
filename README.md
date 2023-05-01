@@ -1,5 +1,5 @@
 # GTProxy
-A Growtopia Proxy to get packet from Client and Server, no shadowban
+A Growtopia Proxy to get packet from Client and Server, no shadowban (maybe?)
 # Wiki
 Now, you can look all information about GTProxy on [Wiki](https://github.com/GuckTubeYT/GTProxy/wiki)
 # TODO List
