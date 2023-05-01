@@ -69,6 +69,9 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                         else if (isStr(value, "OnSpawn", 1)) {
                                             OnPacket.OnSpawn = 1;
                                         }
+                                        else if (isStr(value, "OnTalkBubble", 1)) {
+                                            OnPacket.OnTalkBubble = 1;
+                                        }
                                         break;
                                     }
                                     case 1: {
@@ -82,6 +85,25 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             free(toSplit);
                                             OnPacket.OnSpawn = 0;
                                         }
+                                        else if (OnPacket.OnConsoleMessage) {
+                                            if (userCommands.isFastRoulette) {
+                                                if (includeStr(value, "spun the wheel and got ", strLen)) {
+                                                    memset(event.packet->data + 24, 0, 4);
+                                                }
+                                            }
+                                            OnPacket.OnTalkBubble = 0;
+                                        }
+                                        break;
+                                    }
+                                    case 2: {
+                                        if (OnPacket.OnTalkBubble) {
+                                            if (userCommands.isFastRoulette) {
+                                                if (includeStr(value, "spun the wheel and got ", strLen)) {
+                                                    memset(event.packet->data + 24, 0, 4);
+                                                }
+                                            }
+                                        }
+                                        OnPacket.OnTalkBubble = 0;
                                         break;
                                     }
                                     case 4: {

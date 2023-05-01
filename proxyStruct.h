@@ -11,6 +11,10 @@ struct userConfig_ {
     short httpsPort;
 };
 
+struct userCommands_ {
+    char isFastRoulette;
+};
+
 struct currentInfo_ {
     char* meta;
     char isMetaMalloc;
@@ -26,6 +30,7 @@ struct OnPacket_ {
     char OnConsoleMessage;
     char OnSendToServer;
     char OnSpawn;
+    char OnTalkBubble;
 };
 
 struct OnConsoleMessage_ {
@@ -52,6 +57,7 @@ extern struct OnConsoleMessage_ OnConsoleMessage;
 extern struct OnSendToServer_ OnSendToServer;
 extern struct OnSpawn_ OnSpawn;
 extern struct userConfig_ userConfig;
+extern struct userCommands_ userCommands;
 
 extern char isSendToServer;
 

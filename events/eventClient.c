@@ -123,6 +123,16 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                     }
                     sendPacket(3, CatchMessage("action|join_request\nname|%s\ninvitedWorld|0", command[1]), serverPeer);
                 }
+                else if (isStr(command[0], "/fastroulette", 1)) {
+                    if (userCommands.isFastRoulette) {
+                        userCommands.isFastRoulette = 0;
+                        sendPacket(3, "action|log\nmsg|`wFast roulette is `4turning off`w, type /fastroulette to `2turning on", clientPeer);
+                    }
+                    else {
+                        userCommands.isFastRoulette = 1;
+                        sendPacket(3, "action|log\nmsg|`wFast roulette is `2turning on`w, type /fastroulette to `4turning off", clientPeer);
+                    }
+                }
 
                 else enet_peerSend(event.packet, serverPeer);
 
