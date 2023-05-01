@@ -96,7 +96,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 // command here
                 char** command = strsplit(packetText + 19, " ", 0);
                 if (isStr(command[0], "/proxyhelp", 1)) {
-                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld /testarg <your arg> /testdialog /warp <name world> /netid", clientPeer);
+                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld /testarg <your arg> /testdialog /warp <name world> /netid /fastroulette", clientPeer);
                 }
                 else if (isStr(command[0], "/helloworld", 1)) {
                     sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
