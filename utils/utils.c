@@ -122,8 +122,8 @@ char* generateGID() {
 
 char* generateKlv(char* gameVersion, char* hash, char* rid, char* protocol, char isAndroid) {
     uint8_t md5Data[16];
-    if (!isAndroid) md5String(CatchMessage("0b02ea1d8610bab98fbc1d574e5156f3%sb414b94c3279a2099bd817ba3a025cfc%sbf102589b28a8cc3017cba9aec1306f5%sdded9b27d5ce7f8c8ceb1c9ba25f378d%s", gameVersion, hash, rid, protocol), md5Data);
-    else md5String(CatchMessage("949b7649dac84a00aa8144b05bfb1bee%sd458b26b985802d71bd884342fb773e6%sbf102589b28a8cc3017cba9aec1306f5%s%sb7592a92bdb12b22073d7bd5ed7edaf0", gameVersion, hash, protocol, rid), md5Data);
+    if (!isAndroid) md5String(CatchMessage("%s42e2ae20305244ddaf9b0de5e897fc74%sccc18d2e2ca84e0a81ba29a0af2edc9c%s92e9bf1aad214c69b1f3a18a03aae8dc%s58b92130c89c496b96164b776d956242", gameVersion, protocol, hash, rid), md5Data);
+    else md5String(CatchMessage("949b7649dac84a00aa8144b05bfb1bee%sd458b26b985802d71bd884342fb773e6%s92e9bf1aad214c69b1f3a18a03aae8dc%s%sb7592a92bdb12b22073d7bd5ed7edaf0", gameVersion, hash, protocol, rid), md5Data);
     char* result = malloc(33);
     for (int a = 0, b = 0; a < 16; a++) {
         sprintf(result + b, "%02X", md5Data[a]);
