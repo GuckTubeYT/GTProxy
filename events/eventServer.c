@@ -91,7 +91,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                                     memset(event.packet->data + 24, 0, 4);
                                                 }
                                             }
-                                            OnPacket.OnTalkBubble = 0;
+                                            OnPacket.OnConsoleMessage = 0;
                                         }
                                         break;
                                     }
