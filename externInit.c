@@ -21,7 +21,7 @@ struct OnConsoleMessage_ OnConsoleMessage;
 struct OnSendToServer_ OnSendToServer;
 struct OnSpawn_ OnSpawn;
 struct userConfig_ userConfig;
-struct userCommands_ userCommands;
+struct userOpt_ userOpt;
 
 struct HTTPInfo info;
 ENetHost* realServer;

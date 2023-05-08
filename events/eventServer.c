@@ -72,6 +72,9 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                         else if (isStr(value, "OnTalkBubble", 1)) {
                                             OnPacket.OnTalkBubble = 1;
                                         }
+                                        else if (isStr(value, "OnDialogRequest", 1)) {
+                                            OnPacket.OnDialogRequest = 1;
+                                        }
                                         break;
                                     }
                                     case 1: {
@@ -86,18 +89,23 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             OnPacket.OnSpawn = 0;
                                         }
                                         else if (OnPacket.OnConsoleMessage) {
-                                            if (userCommands.isFastRoulette) {
+                                            if (userOpt.isFastRoulette) {
                                                 if (includeStr(value, "spun the wheel and got ", strLen)) {
                                                     memset(event.packet->data + 24, 0, 4);
                                                 }
                                             }
                                             OnPacket.OnConsoleMessage = 0;
                                         }
+                                        else if (OnPacket.OnDialogRequest) {
+                                            printf("Here is the value: %s\n", value + 48);
+                                            if (isStr(value + 48, "`wThe Growtopia Gazette``", 0)) userConfig.skipGazette++;
+                                            OnPacket.OnDialogRequest = 0;
+                                        }
                                         break;
                                     }
                                     case 2: {
                                         if (OnPacket.OnTalkBubble) {
-                                            if (userCommands.isFastRoulette) {
+                                            if (userOpt.isFastRoulette) {
                                                 if (includeStr(value, "spun the wheel and got ", strLen)) {
                                                     memset(event.packet->data + 24, 0, 4);
                                                 }
@@ -179,6 +187,16 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                         free(OnSendToServer.rawSplit);
                         OnPacket.OnSendToServer = 0;
                         isSendToServer = 1;
+                    }
+                    else if (userConfig.skipGazette == 2) {
+                        // leave it empty if you want skip the gazette
+                        // if you want add your own gazette, you can do
+
+                        /*enet_peerSend(onPacketCreate("ss",
+                        "OnDialogRequest",
+                        "Your dialog here"), clientPeer);*/
+
+                        userConfig.skipGazette--;
                     } else enet_peerSend(event.packet, clientPeer);
                     break;
                 }

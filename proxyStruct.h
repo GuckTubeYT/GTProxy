@@ -9,9 +9,10 @@ struct userConfig_ {
     int manualPort;
     char usingNewPacket;
     short httpsPort;
+    char skipGazette;
 };
 
-struct userCommands_ {
+struct userOpt_ {
     char isFastRoulette;
 };
 
@@ -31,6 +32,7 @@ struct OnPacket_ {
     char OnSendToServer;
     char OnSpawn;
     char OnTalkBubble;
+    char OnDialogRequest;
 };
 
 struct OnConsoleMessage_ {
@@ -57,7 +59,7 @@ extern struct OnConsoleMessage_ OnConsoleMessage;
 extern struct OnSendToServer_ OnSendToServer;
 extern struct OnSpawn_ OnSpawn;
 extern struct userConfig_ userConfig;
-extern struct userCommands_ userCommands;
+extern struct userOpt_ userOpt;
 
 extern char isSendToServer;
 
