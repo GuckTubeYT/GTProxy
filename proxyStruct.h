@@ -10,6 +10,7 @@ struct userConfig_ {
     char usingNewPacket;
     short httpsPort;
     char skipGazette;
+    char isSpoofed;
 };
 
 struct userOpt_ {
