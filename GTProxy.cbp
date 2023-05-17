@@ -86,15 +86,15 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="mainVar.h" />
-		<Unit filename="md5/md5.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="md5/md5.h" />
 		<Unit filename="packet/packet.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="packet/packet.h" />
 		<Unit filename="proxyStruct.h" />
+		<Unit filename="sha256/sha256.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sha256/sha256.h" />
 		<Unit filename="tlse/tlse.c">
 			<Option compilerVar="CC" />
 		</Unit>

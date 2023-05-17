@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 #include "utils.h"
-#include "../md5/md5.h"
+#include "../sha256/sha256.h"
 
 char** strsplit(const char* s, const char* delim, size_t* nb) { // https://github.com/mr21/strsplit.c
     void* data;
@@ -120,16 +120,36 @@ char* generateGID() {
     return result;
 }
 
-char* generateKlv(char* gameVersion, char* hash, char* rid, char* protocol, char isAndroid) {
-    uint8_t md5Data[16];
-    /*if (!isAndroid) md5String(CatchMessage("%s42e2ae20305244ddaf9b0de5e897fc74%sccc18d2e2ca84e0a81ba29a0af2edc9c%s92e9bf1aad214c69b1f3a18a03aae8dc%s58b92130c89c496b96164b776d956242", gameVersion, protocol, hash, rid), md5Data);
-    else*/ md5String(CatchMessage("%s13c93f386db9da3e00dda16d770b0c83%s6b1c01f9128a62a2c97b1a0da4612168%s3402d278d8519a522c94d122e98e2e49%sba95613bc0fd94a9d89c5919670e7d5d", gameVersion, protocol, hash, rid), md5Data);
-    char* result = malloc(33);
-    for (int a = 0, b = 0; a < 16; a++) {
-        sprintf(result + b, "%02X", md5Data[a]);
+char* sha256Gen(char* data) {
+    char* result = malloc(65); // 32 + 1
+    BYTE sha256res[32];
+    SHA256_CTX ctx;
+    sha256Init(&ctx);
+    sha256UpdateLen(&ctx, data);
+    sha256Final(&ctx, sha256res);
+
+    for (int a = 0, b = 0; a < 32; a++) {
+        sprintf(result + b, "%02x", sha256res[a]);
         b += 2;
     }
-    result[32] = '\0';
+    result[64] = '\0';
+
+    return result;
+}
+
+char* generateKlv(char* gameVersion, char* hash, char* rid, char* protocol, char isAndroid) {
+    char* gameVersion_sha256 = sha256Gen(gameVersion);
+    char* hash_sha256 = sha256Gen(hash);
+    char* protocol_sha256 = sha256Gen(protocol);
+    char* rid_sha256 = sha256Gen(rid);
+
+    char* result = sha256Gen(CatchMessage("%s198c4213effdbeb93ca64ea73c1f505f%s82a2e2940dd1b100f0d41d23b0bb6e4d%sc64f7f09cdd0c682e730d2f936f36ac2%s27d8da6190880ce95591215f2c9976a6", gameVersion_sha256, hash_sha256, protocol_sha256, rid_sha256));
+
+    free(gameVersion_sha256);
+    free(hash_sha256);
+    free(protocol_sha256);
+    free(rid_sha256);
+
     return result;
 }
 
