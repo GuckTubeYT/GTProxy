@@ -100,8 +100,28 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 if (isStr(command[0], "/proxyhelp", 1)) {
                     sendPacket(3, "action|log\nmsg|>> Commands: /helloworld /testarg <your arg> /testdialog /warp <name world> /netid /fastroulette", clientPeer);
                 }
-                else if (isStr(command[0], "/helloworld", 1)) {
-                    sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
+                else if (isStr(command[0], "/vault", 1)) {
+                    int vaultx = std::stoi(packet.substr(packet.find("tilex|") + 6, packet.length() - packet.find("tilex|") - 1));
+
+                    int vaulty = std::stoi(packet.substr(packet.find("tiley|") + 6, packet.length() - packet.find("tiley|") - 1));
+
+        posx = vaultx;
+
+        posy = vaulty;
+
+        Dialog bpsv;
+
+        bpsv.addLabelWithIcon("Bypass Option", 8878, LABEL_BIG);
+
+        bpsv.addSpacer(SPACER_SMALL);
+
+        bpsv.addSmallText("Vault Pos X : " + std::to_string(vaultx));
+
+        bpsv.addSmallText("Vault Pos Y : " + std::to_string(vaulty));
+
+        bpsv.endDialog("options_menu_v", "Apply", "Cancel");
+
+        gt::send_log("`9Pos X, Pos Y applied!. Please write /vault", clientPeer); 
                 }
                 else if (isStr(command[0], "/netid", 1)) {
                     enet_peerSend(onPacketCreate("ss", "OnConsoleMessage", CatchMessage("My netID is %s", OnSpawn.LocalNetid)), clientPeer);
