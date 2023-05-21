@@ -46,7 +46,7 @@ void sendPacketRaw(void* packet, int packetSize, ENetPeer* peer) {
     enet_peerSend(enetPacket, peer);
 }
 
-ENetPacket* onPacketCreate(char* format, ...) {
+ENetPacket* onPacketCreate(int netid, int delay, char* format, ...) {
     va_list args;
     va_start(args, format);
     int totalData = 62;
@@ -81,13 +81,14 @@ ENetPacket* onPacketCreate(char* format, ...) {
     unsigned char* resultData = malloc(totalData + 1);
     memset(resultData, 0, totalData);
 
-    struct GameUpdatePacket packet_t;
+    GameUpdatePacket packet_t;
     memset(&packet_t, 0, 60);
 
     packet_t.type = NET_MESSAGE_GAME_PACKET;
     packet_t.gamePacketType = PACKET_CALL_FUNCTION;
-    packet_t.item = -1;
+    packet_t.item = !netid ? -1 : netid;
     packet_t.int_var = 8;
+    if (delay) packet_t.delay = delay;
     totalData -= 61;
     packet_t.data = totalData;
     totalData += 61;

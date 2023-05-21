@@ -82,7 +82,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                             char** toSplit = strsplit(value, "\n", 0);
                                             if (isStr(toSplit[11], "type|local", 1)) {
                                                 char** netid = strsplit(toSplit[findArray(toSplit, "netID|")], "|", 0);
-                                                asprintf(&OnSpawn.LocalNetid, "%d", atoi(netid[1]));
+                                                OnSpawn.LocalNetid = atoi(netid[1]);
                                                 free(netid);
                                             }
                                             free(toSplit);
@@ -182,7 +182,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                     if (OnPacket.OnSendToServer) {
                         char** splitString = strsplit(OnSendToServer.rawSplit, "|", 0);
                         splitString[0] = "127.0.0.1";
-                        enet_peerSend(onPacketCreate("sdddsd", "OnSendToServer", 17091, OnSendToServer.token, OnSendToServer.userID, arrayJoin(splitString, "|", 0), OnSendToServer.unkInt), clientPeer);
+                        enet_peerSend(onPacketCreate(0, 0, "sdddsd", "OnSendToServer", 17091, OnSendToServer.token, OnSendToServer.userID, arrayJoin(splitString, "|", 0), OnSendToServer.unkInt), clientPeer);
                         free(splitString);
                         free(OnSendToServer.rawSplit);
                         OnPacket.OnSendToServer = 0;
@@ -192,7 +192,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                         // leave it empty if you want skip the gazette
                         // if you want add your own gazette, you can do
 
-                        /*enet_peerSend(onPacketCreate("ss",
+                        /*enet_peerSend(onPacketCreate(0, 0, "ss",
                         "OnDialogRequest",
                         "Your dialog here"), clientPeer);*/
 

@@ -11,9 +11,9 @@ void sendPacket(int val, char* packetText, ENetPeer* peer);
 unsigned char* GetExtendedDataPointerFromTankPacket(unsigned char* a1);
 void enet_peerSend(ENetPacket* packet, ENetPeer* peer);
 void sendPacketRaw(void* packet, int packetSize, ENetPeer* peer);
-ENetPacket* onPacketCreate(char* format, ...);
+ENetPacket* onPacketCreate(int netid, int delay, char* format, ...);
 
-struct GameUpdatePacket { // https://github.com/SrMotion/INZERNAL/blob/main/INZERNAL/sdk/GameUpdatePacket.h
+typedef struct { // https://github.com/SrMotion/INZERNAL/blob/main/INZERNAL/sdk/GameUpdatePacket.h
     uint8_t type; //0
     union {
         uint8_t objtype; //1
@@ -122,7 +122,7 @@ struct GameUpdatePacket { // https://github.com/SrMotion/INZERNAL/blob/main/INZE
     };
     uint32_t data_size; //52
     uint32_t data; // 56
-};
+} GameUpdatePacket;
 
 //Packet Game Type
 
@@ -167,13 +167,13 @@ enum {
     PACKET_ACTIVE_ARROW_TO_ITEM,
     PACKET_SELECT_TILE_INDEX,
     PACKET_SEND_PLAYER_TRIBUTE_DATA, //39
-    PACKET_PVE_UNK1, //no names for these 5, so i named them unk. 
+    PACKET_PVE_UNK1, //no names for these 5, so i named them unk.
     PACKET_PVE_UNK2,
     PACKET_PVE_UNK3,
     PACKET_PVE_UNK4,
     PACKET_PVE_UNK5,
-    PACKET_SET_EXTRA_MODS,           
-    PACKET_ON_STEP_ON_TILE_MOD,     
+    PACKET_SET_EXTRA_MODS,
+    PACKET_ON_STEP_ON_TILE_MOD,
     PACKET_MAXVAL                    //not real, just for string overflow
 };
 
