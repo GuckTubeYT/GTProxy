@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef __WIN32
+#ifdef _WIN32
 #include <windows.h>
 #else
 #include <pthread.h>
@@ -22,7 +22,7 @@
 void loadConfig() {
     FILE* fp = fopen("config.conf", "rb");
     if (!fp) {
-        printf("[GTProxy] config.conf not found! Creating...\n");
+        printf("[GTProxy Configuration] config.conf not found! Creating...\n");
         fp = fopen("config.conf", "wb");
 
         userConfig.usingServerData = 1;
@@ -37,7 +37,7 @@ void loadConfig() {
 
         fprintf(fp, "usingServerData=1\nserverDataIP=2.17.198.162\nmanualIP=127.0.0.1\nmanualPort=17091\nmanualMeta=localhost\nusingNewPacket=1\nhttpsPort=443\nskipGazette=1\nisSpoofed=0");
         fclose(fp);
-        printf("[GTProxy] config.conf has been created!\n");
+        printf("[GTProxy Configuration] config.conf has been created!\n");
     } else {
         fseek(fp, 0, SEEK_END);
         int fsize = ftell(fp);
@@ -85,7 +85,13 @@ void loadConfig() {
 
         free(split);
     }
-
+    printf("[GTProxy Configuration] Using Server data: %s\n", userConfig.usingServerData ? "true" : "false");
+    if (userConfig.usingServerData) printf("[GTProxy Configuration] Server Data IP: %s\n", userConfig.serverDataIP);
+    else printf("[GTProxy Configuration] Manual IP: %s\n[GTProxy Configuration] Manual Port: %d\n[GTProxy Configuration] Manual Meta: %s\n", userConfig.manualIP, userConfig.manualPort, userConfig.manualMeta);
+    printf("[GTProxy Configuration] Using new packet: %s\n", userConfig.usingNewPacket ? "true" : "false");
+    printf("[GTProxy Configuration] HTTPS Port: %d\n", userConfig.httpsPort);
+    printf("[GTProxy Configuration] Skip gazette: %s\n", userConfig.skipGazette ? "true" : "false");
+    printf("[GTProxy Configuration] Is Spoofed: %s\n[GTProxy Configuration] Configuration has been loaded!\n", userConfig.isSpoofed ? "true" : "false");
 }
 
 int main() {
