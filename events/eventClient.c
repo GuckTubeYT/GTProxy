@@ -98,13 +98,13 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 // command here
                 char** command = strsplit(packetText + 19, " ", 0);
                 if (isStr(command[0], "/proxyhelp", 1)) {
-                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld /testarg <your arg> /testdialog /warp <name world> /netid /fastroulette", clientPeer);
+                    sendPacket(3, "action|log\nmsg|>> Commands: /helloworld /testarg <your arg> /testdialog /warp <name world> /netid /changename <Name> /fastroulette", clientPeer);
                 }
                 else if (isStr(command[0], "/helloworld", 1)) {
                     sendPacket(3, "action|log\nmsg|`2Hello World", clientPeer);
                 }
                 else if (isStr(command[0], "/netid", 1)) {
-                    enet_peerSend(onPacketCreate("ss", "OnConsoleMessage", CatchMessage("My netID is %s", OnSpawn.LocalNetid)), clientPeer);
+                    enet_peerSend(onPacketCreate(0, 0, "ss", "OnConsoleMessage", CatchMessage("My netID is %d", OnSpawn.LocalNetid)), clientPeer);
                 }
                 else if (isStr(command[0], "/testarg", 1)) {
                     if (!command[1]) {
@@ -115,7 +115,15 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                     sendPacket(3, CatchMessage("action|log\nmsg|%s", command[1]), clientPeer);
                 }
                 else if (isStr(command[0], "/testdialog", 1)) {
-                    enet_peerSend(onPacketCreate("ss", "OnDialogRequest","set_default_color|`o\nadd_label_with_icon|big|`wTest Dialog!``|left|758|\nadd_textbox|Is It Working?|left|\nadd_text_input|yesno||yes|5|\nembed_data|testembed|4\nadd_textbox|`4Warning:``Dont Forget To Star Repo!|left|\nend_dialog|test_dialog|Cancel|OK|"), clientPeer);
+                    enet_peerSend(onPacketCreate(0, 0, "ss", "OnDialogRequest","set_default_color|`o\nadd_label_with_icon|big|`wTest Dialog!``|left|758|\nadd_textbox|Is It Working?|left|\nadd_text_input|yesno||yes|5|\nembed_data|testembed|4\nadd_textbox|`4Warning:``Dont Forget To Star Repo!|left|\nend_dialog|test_dialog|Cancel|OK|"), clientPeer);
+                }
+                else if (isStr(command[0], "/changename", 1)) {
+                    if (!command[1]) {
+                        sendPacket(3, "action|log\nmsg|Please input the name", clientPeer);
+                        free(command); // prevent memleak
+                        break;
+                    }
+                    enet_peerSend(onPacketCreate(OnSpawn.LocalNetid, 0, "ss", "OnNameChanged", command[1]), clientPeer);
                 }
                 else if (isStr(command[0], "/warp", 1)) {
                     if (!command[1]) {
