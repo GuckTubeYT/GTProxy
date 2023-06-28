@@ -1032,11 +1032,10 @@ enet_protocol_handle_incoming_commands (ENetHost * host, ENetEvent * event)
         return 0;
       if (ENET_NET_TO_HOST_16(newHeader -> integrity[2]) <= 0x7FFF)
         return 0;
-      if (((ENET_NET_TO_HOST_16(newHeader -> integrity[2]) & 0x9005) | 0x67DA) != 0xF7DF)
+      printf("%d\n", ((ENET_NET_TO_HOST_16(newHeader -> integrity[2]) & 0x920D) | 0x61D2));
+      if ((ENET_NET_TO_HOST_16(newHeader -> integrity[2]) | 0x61D2) != 0xF7DF)
         return 0;
-      if ((ENET_NET_TO_HOST_16(newHeader -> integrity[2]) | 0x67DA) != 0xF7DF)
-        return 0;
-      if ((ENET_NET_TO_HOST_16(newHeader -> integrity[2]) & 0x9005) != 0x9005)
+      if ((ENET_NET_TO_HOST_16(newHeader -> integrity[2]) & 0x920D) != 0x920D)
         return 0;
     }
     else
@@ -1627,7 +1626,7 @@ enet_protocol_send_outgoing_commands (ENetHost * host, ENetEvent * event, int ch
 
       newHeader -> integrity[0] = ENET_HOST_TO_NET_16 (rand1);
       newHeader -> integrity[1] = ENET_HOST_TO_NET_16 (rand1 ^ port);
-      newHeader -> integrity[2] = ENET_HOST_TO_NET_16 (enet_host_random (host) & 0x67DA | 0x9005);
+      newHeader -> integrity[2] = ENET_HOST_TO_NET_16 (enet_host_random (host) & 0x61D2 | 0x920D);
     }
  
     host -> continueSending = 1;
@@ -1944,4 +1943,3 @@ enet_host_service (ENetHost * host, ENetEvent * event, enet_uint32 timeout)
 
     return 0; 
 }
-
