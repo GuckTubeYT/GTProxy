@@ -12,7 +12,7 @@
 
 void clientConnect() {
     if (isSendToServer) {
-        printf("[Client] Client connected into proxy\n[Client] Connecting to subserver...\n");
+        printf("[CLIENT -> SERVER] Client connected into proxy\n[CLIENT -> SERVER] Connecting to subserver...\n");
         enet_host_destroy(realServer);
 
         realServer = enet_host_create(NULL, 1, 2, 0, 0);
@@ -28,7 +28,7 @@ void clientConnect() {
 
         isSendToServer = 0;
     } else {
-        printf("[Client] Client connected into proxy\n[Client] Connecting to Growtopia Server...\n");
+        printf("[CLIENT -> SERVER] Client connected into proxy\n[CLIENT -> SERVER] Connecting to Growtopia Server...\n");
 
         memset(&realAddress, 0, sizeof(ENetAddress));
         if (userConfig.usingServerData) {
@@ -46,7 +46,7 @@ void clientConnect() {
             free(arr);
         }
         else {
-            printf("[Client] Client connected into proxy\n[Client] Connecting to Custom Growtopia Server...\n");
+            printf("[CLIENT -> SERVER] Client connected into proxy\n[CLIENT -> SERVER] Connecting to Custom Growtopia Server...\n");
             enet_address_set_host(&realAddress, userConfig.manualIP);
             realAddress.port = userConfig.manualPort;
             realPeer = enet_host_connect(realServer, &realAddress, 2, 0);
@@ -83,7 +83,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 }
 
                 char* resultSpoofed = arrayJoin(loginInfo, "\n", 1);
-                printf("[Client] Spoofed Login info: %s\n", resultSpoofed);
+                printf("[CLIENT -> SERVER] Spoofed Login info: %s\n", resultSpoofed);
                 sendPacket(2, resultSpoofed, serverPeer);
 
                 free(resultSpoofed);
@@ -92,7 +92,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                 break;
             }
 
-            printf("[Client] Packet 2: received packet text: %s\n", packetText);
+            printf("[CLIENT -> SERVER] Packet 2: received packet text: %s\n", packetText);
 
             if ((packetText + 19)[0] == '/') {
                 // command here
@@ -165,7 +165,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
         }
         case 3: {
             char* packetText = GetTextPointerFromPacket(event.packet);
-            printf("[Client] Packet 3: received packet text: %s\n", packetText);
+            printf("[CLIENT -> SERVER] Packet 3: received packet text: %s\n", packetText);
             if (isStr(packetText, "action|quit", 1)) {
                 isLoop = 0;
                 doLoop = 1;
@@ -182,7 +182,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                     break;
                 }
                 default: {
-                    printf("[Client] TankUpdatePacket: Unknown packet tank type: %d\n", event.packet->data[4]);
+                    printf("[CLIENT -> SERVER] TankUpdatePacket: Unknown packet tank type: %d\n", event.packet->data[4]);
                     enet_peerSend(event.packet, serverPeer);
                     break;
                 }
@@ -190,7 +190,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
             break;
         }
         default: {
-            printf("[Client] Unknown message type: %d\n", GetMessageTypeFromPacket(event.packet));
+            printf("[CLIENT -> SERVER] Unknown message type: %d\n", GetMessageTypeFromPacket(event.packet));
             enet_peerSend(event.packet, serverPeer);
             break;
         }
@@ -198,7 +198,7 @@ void clientReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 }
 
 void clientDisconnect() {
-    printf("[Client] Client just disconnected from Proxy\n");
+    printf("[CLIENT -> SERVER] Client just disconnected from Proxy\n");
     isLoop = 0;
     doLoop = 1;
 }

@@ -8,30 +8,30 @@
 #include "../proxyStruct.h"
 
 void serverConnect() {
-    printf("[Server] Proxy connected into Server\n");
+    printf("[SERVER -> CLIENT] Proxy connected into Server\n");
 }
 
 void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) {
     switch(GetMessageTypeFromPacket(event.packet)) {
         case 1: {
-            printf("[Server] Server just send Hello Packet\n[Client] Sending login info\n");
+            printf("[SERVER -> CLIENT] Server just send Hello Packet\n[CLIENT -> SERVER] Sending login info\n");
             SendPacketPacket(event.packet, clientPeer);
             break;
         }
         case 2: {
             char* packetText = GetTextPointerFromPacket(event.packet);
-            printf("[Server] Packet 2: received packet text: %s\n", packetText);
+            printf("[SERVER -> CLIENT] Packet 2: received packet text: %s\n", packetText);
             enet_peerSend(event.packet, clientPeer);
             break;
         }
         case 3: {
             char* packetText = GetTextPointerFromPacket(event.packet);
-            printf("[Server] Packet 3: received packet text: %s\n", packetText);
+            printf("[SERVER -> CLIENT] Packet 3: received packet text: %s\n", packetText);
             enet_peerSend(event.packet, clientPeer);
             break;
         }
         case 4: {
-            printf("[Server] Packet 4: Received packet tank: %d\n", event.packet->data[4]);
+            printf("[SERVER -> CLIENT] Packet 4: Received packet tank: %d\n", event.packet->data[4]);
             switch(event.packet->data[4]) {
                 case 1: {
                     unsigned char* packetTank = GetExtendedDataPointerFromTankPacket(event.packet->data + 4);
@@ -45,7 +45,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                             case 1: {
                                 float value;
                                 memcpy(&value, packetTank, 4); packetTank += 4;
-                                printf("[Server] TankUpdatePacket Variable: float found at %d: %f\n", index, value);
+                                printf("[SERVER -> CLIENT] TankUpdatePacket Variable: float found at %d: %f\n", index, value);
                                 break;
                             }
                             case 2: {
@@ -126,7 +126,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                     }
                                 }
 
-                                printf("[Server] TankUpdatePacket Variable: string found at %d: %s\n", index, value);
+                                printf("[SERVER -> CLIENT] TankUpdatePacket Variable: string found at %d: %s\n", index, value);
                                 free(value);
                                 break;
                             }
@@ -137,14 +137,14 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                 memcpy(&value1, packetTank, 4); packetTank += 4;
                                 memcpy(&value2, packetTank, 4); packetTank += 4;
 
-                                printf("[Server] TankUpdatePacket Variable: vector found at %d: %f, %f\n", index, value1, value2);
+                                printf("[SERVER -> CLIENT] TankUpdatePacket Variable: vector found at %d: %f, %f\n", index, value1, value2);
                                 break;
                             }
                             case 5: {
                                 int value;
                                 memcpy(&value, packetTank, 4); packetTank += 4;
 
-                                printf("[Server] TankUpdatePacket Variable: integer X found at %d: %d\n", index, value);
+                                printf("[SERVER -> CLIENT] TankUpdatePacket Variable: integer X found at %d: %d\n", index, value);
                                 break;
                             }
                             case 9: {
@@ -170,11 +170,11 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
                                     }
                                 }
 
-                                printf("[Server] TankUpdatePacket Variable: integer found at %d: %d\n", index, value);
+                                printf("[SERVER -> CLIENT] TankUpdatePacket Variable: integer found at %d: %d\n", index, value);
                                 break;
                             }
                             default: {
-                                printf("[Server] TankUpdatePacket Variable: unknown variable type: %d\n", type);
+                                printf("[SERVER -> CLIENT] TankUpdatePacket Variable: unknown variable type: %d\n", type);
                                 break;
                             }
                         }
@@ -208,7 +208,7 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
             break;
         }
         default: {
-            printf("[Server] Unknown message type: %d\n", GetMessageTypeFromPacket(event.packet));
+            printf("[SERVER -> CLIENT] Unknown message type: %d\n", GetMessageTypeFromPacket(event.packet));
             enet_peerSend(event.packet, clientPeer);
             break;
         }
@@ -216,5 +216,5 @@ void serverReceive(ENetEvent event, ENetPeer* clientPeer, ENetPeer* serverPeer) 
 }
 
 void serverDisconnect() {
-    printf("[Server] Proxy just disconnected from Server\n");
+    printf("[SERVER -> CLIENT] Proxy just disconnected from Server\n");
 }
