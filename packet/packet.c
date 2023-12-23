@@ -41,8 +41,10 @@ void enet_peerSend(ENetPacket* packet, ENetPeer* peer) {
 }
 
 void sendPacketRaw(void* packet, int packetSize, ENetPeer* peer) {
-    ENetPacket* enetPacket = enet_packet_create(NULL, packetSize + 1, ENET_PACKET_FLAG_RELIABLE);
-    memcpy(enetPacket->data, packet, packetSize);
+    int typ = NET_MESSAGE_GAME_PACKET;
+    ENetPacket* enetPacket = enet_packet_create(NULL, packetSize + 5, ENET_PACKET_FLAG_RELIABLE);
+    memcpy(enetPacket->data, &typ, 4);
+    memcpy(enetPacket->data + 4, packet, packetSize);
     enet_peerSend(enetPacket, peer);
 }
 
